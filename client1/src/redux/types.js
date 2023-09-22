@@ -1,0 +1,12 @@
+export const SET_USER = "SET_USER";
+export const ERRORS = "ERRORS";
+export const SET_PROFILE = "SET_PROFILE";
+export const SET_PROFILES = "SET_PROFILES";
+export const DELETE_PROFILE = "DELETE_PROFILE";
+export const SET_EVENT_LIST ="SET_EVENT_LIST";
+export const SET_EVENTS_LIST ="SET_EVENTS_LIST";
+export const DELETE_EVENT_LIST ="DELET_EVENT_LIST";
+export const SET_EVENT_USER = "SET_EVENT_USER";
+export const SET_EVENT_USERS = "SET_EVENT_USERS";
+export const DELETE_EVENT_USER = "DELETE_EVENT_USER";
+export const DELETE_EVENT_TITLE="DELETE_EVENT_TITLE";

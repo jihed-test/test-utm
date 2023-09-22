@@ -1,0 +1,18 @@
+{
+    "Étudiants":"Students",
+    "Nationalités":"Nationalities",
+    "Établissements":"Establishments",
+    "Liste des événements":"Events list",
+    "title":"title",
+    "date":"date",
+    "actions":"actions",
+    "Liste des profils":"List of profiles",
+    "name":"last name",
+    "prenom":"first name",
+    "email":"email",
+    "role":"role",
+    "telephone":"phone",
+    "city": "city",
+    "country":"country"
+   
+}
