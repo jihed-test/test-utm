@@ -49,8 +49,8 @@ export const UpdateEventUser = (form, setMessage)=>dispatch=>{
         setShow(true)
         setMessage("Event updated with success")
         dispatch({
-            type: ERRORS,
-            payload: {}
+            type: SET_EVENT_USERS,
+              payload: res.data
         })
         
       })

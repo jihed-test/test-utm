@@ -4,16 +4,13 @@ const validator = require("validator");
 module.exports = function ValidateRegister(data) {
   let errors = {};
 
-  data.image = !isEmpty(data.image) ? data.image : "";
   data.nom = !isEmpty(data.nom) ? data.nom : "";
   data.prenom = !isEmpty(data.prenom) ? data.prenom : "";
   data.email = !isEmpty(data.email) ? data.email : "";
   data.password = !isEmpty(data.password) ? data.password : "";
   data.confirm = !isEmpty(data.confirm) ? data.confirm : "";
 
-  if (validator.isEmpty(data.image)) {
-    errors.image = "Required image";
-  }
+
   if (validator.isEmpty(data.nom)) {
     errors.nom = "Required nom";
   }

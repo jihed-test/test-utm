@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 const UserModel = new Schema(
   {
-    image: "string",
     nom: "string",
     prenom: "string",
     email: {
@@ -12,6 +11,8 @@ const UserModel = new Schema(
       unique: true,
     },
     password: "string",
+    code:"string",
+    validate:"Boolean",
     role: "string",
   },
   {

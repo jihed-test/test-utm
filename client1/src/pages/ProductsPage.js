@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 // @mui
 import { Container, Stack, Typography } from '@mui/material';
 // components
@@ -8,6 +9,7 @@ import { Container, Stack, Typography } from '@mui/material';
 // ----------------------------------------------------------------------
 
 export default function ProductsPage() {
+  const { t, i18n } = useTranslation();
   const [openFilter, setOpenFilter] = useState(false);
 
   function test () {

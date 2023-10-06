@@ -9440,6 +9440,11 @@
   "resolved" "https://registry.npmjs.org/react-icons/-/react-icons-4.10.1.tgz"
   "version" "4.10.1"
 
+"react-input-verification-code@^1.0.2":
+  "integrity" "sha512-mZsFFhlCkyu/0+OASkA+eAK/oSblBeYMHFiy3sRom1jklyH37dhmzklvuUfHbyepJW/DJ3WtT0w2x7pu16F+Bw=="
+  "resolved" "https://registry.npmjs.org/react-input-verification-code/-/react-input-verification-code-1.0.2.tgz"
+  "version" "1.0.2"
+
 "react-is@^16.13.1":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
@@ -10590,7 +10595,7 @@
   "resolved" "https://registry.npmjs.org/style-loader/-/style-loader-3.3.1.tgz"
   "version" "3.3.1"
 
-"styled-components@^5.1.1", "styled-components@^5.3.1", "styled-components@^5.3.11", "styled-components@>= 2":
+"styled-components@^5.1.1", "styled-components@^5.3.1", "styled-components@^5.3.11", "styled-components@>= 2", "styled-components@>=5.0.0":
   "integrity" "sha512-uuzIIfnVkagcVHv9nE0VPlHPSCmXIUGKfJ42LNjxCCTDTL5sgnJ8Z7GZBq0EnLYGln77tPpEpExt2+qa+cZqSw=="
   "resolved" "https://registry.npmjs.org/styled-components/-/styled-components-5.3.11.tgz"
   "version" "5.3.11"

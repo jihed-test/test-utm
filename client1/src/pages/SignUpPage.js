@@ -14,22 +14,14 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AvatarImage from '../components/avatarEdit' ;
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import { useTranslation } from 'react-i18next';
+
 
 const theme = createTheme();
 
 export default function SignUp() {
+  const { t, i18n } = useTranslation();
+
   const [form, setForm] = useState({})
   const dispatch = useDispatch()
   const errors = useSelector(state=>state.errors)
@@ -76,7 +68,18 @@ console.log(form)
       password: data.get('password'),
     });
   };
-
+  function Copyright(props) {
+    return (
+      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        {'Copyright © '}
+        <Link color="inherit" href="https://mui.com/">
+        {t('')}Your Website
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -93,13 +96,13 @@ console.log(form)
             <AccessAlarmsOutlined />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+          {t('Sign up')}
           </Typography>
-          <AvatarImage 
+          {/* <AvatarImage 
           name="image" 
           onCrop={onCrop}
           onClose={onClose}
-          errors={errors.image}/>
+          errors={errors.image}/> */}
           <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -177,12 +180,12 @@ console.log(form)
               variant="outlined"
               sx={{ mt: 3, mb: 2 }}
             >
-            S'inscrire
+            {t("S'inscrire")}
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="#" variant="body2">
-                Vous avez déjà un compte? Se connecter
+                {t('Vous avez déjà un compte? Se connecter')}
                 </Link>
               </Grid>
             </Grid>

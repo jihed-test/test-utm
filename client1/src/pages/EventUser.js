@@ -7,8 +7,9 @@ import { GetEventLists } from '../redux/actions/eventListActions'
 import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 import { GetAllEventUser } from 'src/redux/actions/eventUserActions'
-
+import { useTranslation } from 'react-i18next';
 function Admin() {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
   const events = useSelector(state => state.events)
@@ -75,15 +76,15 @@ if (givenDate < currentDate) {
        
        <div className="col-lg-12 col-md-12 mt-4">
            <div className="d-flex">
-            <i className="fa-solid fa-user fs-1 mx-2"></i> <h2>Event list Not Add</h2>
+            <i className="fa-solid fa-user fs-1 mx-2"></i> <h2>{t('Event list Not Add')}</h2>
            </div>
            <div className="shadow-lg p-3 mb-5 bg-body rounded" style={{backgroundColor: "white"}}>
             <table className="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">title</th>
-                    <th scope="col">date</th>
-                    <th scope="col">actions</th>
+                    <th scope="col">{t('title')}</th>
+                    <th scope="col">{t('date')}</th>
+                    <th scope="col">{t('actions')}</th>
                   </tr>
                 </thead>
                 <tbody>

@@ -4,12 +4,12 @@ import Date from "../components/date"
 import Button from '@mui/material/Button';
 import QRCode from 'qrcode.react';
 import { AddEventUser,GetEventUser } from "src/redux/actions/eventUserActions";
-
+import { useTranslation } from 'react-i18next';
 import { jsPDF } from "jspdf";
-
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 export default function EventListPage() {
-  const dispatch = useDispatch()
+  const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
   const certificateTemplateRef = useRef(null);
   const events = useSelector(state => state.events.events)
   const Datacomment = useSelector(state => {return state.eventUser.eventUser||{}})
@@ -24,10 +24,9 @@ export default function EventListPage() {
   });
   useEffect(() => { 
     dispatch(GetEventUser(event.title))
-
 }, [])
 const result = events.filter((test) => test.title == event.title);
-console.log(result[0].title)
+
 
 
 
@@ -88,7 +87,7 @@ doc.save('Test.pdf');
        
        <div >
            <div className="d-flex">
-            <div><h2>Événement: {event.title||""}</h2>
+            <div><h2>{t('Événement')}: {event.title||""}</h2>
            <br/> <p>{event.date||""}</p></div>
            </div>
            <div className="shadow-lg p-3 mb-5 bg-body rounded" style={{backgroundColor: "white"}}>

@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AddEventUser,delaitCommentEvent, UpdateEventUser,GetEventUser } from "src/redux/actions/eventUserActions";
 import AddComment from "src/components/comment/AddComment";
 import Comment from "src/components/comment/Comment";
-
+import { useTranslation } from 'react-i18next';
 export default function EventListPage() {
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch()
   const Datacomment = useSelector(state => state.eventUser.eventUser)
 
@@ -90,7 +91,7 @@ export default function EventListPage() {
 
         <div >
           <div className="d-flex">
-            <div><h2>Event: {event.title || ""}</h2>
+            <div><h2>{t('Event')}: {event.title || ""}</h2>
               <br /> <p>{event.date || ""}</p></div>
           </div>
           <div className="shadow-lg p-3 mb-5 bg-body rounded" style={{ backgroundColor: "white" }}>

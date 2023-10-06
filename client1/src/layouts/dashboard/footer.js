@@ -1,6 +1,9 @@
 import React from 'react';
 import { CDBBox, CDBBtn, CDBIcon, CDBNavLink } from 'cdbreact';
+import { useTranslation } from 'react-i18next';
+import "../../i18n";
 export default  function Footer1 () {
+  const { t, i18n } = useTranslation();
   return (
     <div className="container ">
 
@@ -17,8 +20,9 @@ export default  function Footer1 () {
             <CDBBox>
 
             <p className="my-3" style={{ width: '250px' }}>
-              Université de Tunis El Manar : Campus Universitaire Farhat Hached B.P. n° 94 - ROMMANA 1068 Tunis, Tunisie.
+            {t('Université de Tunis El Manar : Campus Universitaire Farhat Hached B.P. n° 94 - ROMMANA 1068 Tunis, Tunisie.')}
             </p>
+            
             <p className="my-3" style={{ width: '250px' }}>
               CCP : 17001000000321990621
             </p>
@@ -37,22 +41,22 @@ export default  function Footer1 () {
 
             <CDBBox>
               <p className="h5 mb-4" style={{ fontWeight: '600' }}>
-                Help</p>
+              {t("Help")}</p>
               <CDBBox flex="column" style={{ cursor: 'pointer', padding: '0' }}>
-                <CDBNavLink href="/">Resources</CDBNavLink>
-                <CDBNavLink href="/">About Us</CDBNavLink>
-                <CDBNavLink href="/">Contact</CDBNavLink>
-                <CDBNavLink href="/">Blog</CDBNavLink>
+                <CDBNavLink href="/">{t("Resources")}</CDBNavLink>
+                <CDBNavLink href="/">{t("About Us")}</CDBNavLink>
+                <CDBNavLink href="/">{t("Contact")}</CDBNavLink>
+                <CDBNavLink href="/">{t("Blog")}</CDBNavLink>
               </CDBBox>
             </CDBBox>
             <CDBBox>
               <p className="h5 mb-4" style={{ fontWeight: '600' }}>
-                Contacts
+              {t('Contacts')}
               </p>
               <CDBBox flex="column" style={{ cursor: 'pointer', padding: '0' }}>
                 <p className="my-3" style={{ width: '250px' }}>
                   <i className="fa-thin fa-tty" style={{ color: '#e12323' }}></i>
-                  Tél : (216) 71 873 366
+                  Tel : (216) 71 873 366
                 </p>
                 <p className="my-3" style={{ width: '250px' }}>
                   <i className="fa-solid fa-fax" style={{ color: '#e12323' }}></i>

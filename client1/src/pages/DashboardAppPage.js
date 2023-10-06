@@ -149,7 +149,7 @@ if (givenDate < currentDate) {
                 fontFamily: '"Open Sans", Arial, sans-serif',
                 fontSize: 20
               }}
-            >{t('')}Structures de Recherche</label>
+            >{t('Structures de Recherche')}</label>
              </div>
           </Col>
         </Row>

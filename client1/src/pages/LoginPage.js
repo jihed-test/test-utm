@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { LoginAction } from "../redux/actions/authActions";
 import { Helmet } from 'react-helmet-async';
-// @mui
+import { useTranslation } from 'react-i18next';
 import { styled } from '@mui/material/styles';
 import { Link, Container, Typography, Divider, Stack, Button } from '@mui/material';
 // hooks
@@ -45,12 +45,13 @@ const StyledContent = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function LoginPage() {
+  const { t, i18n } = useTranslation();
   const mdUp = useResponsive('up', 'md');
 
   return (
     <>
       <Helmet>
-        <title> Se connecter  </title>
+        <title> {t('Se connecter')}  </title>
       </Helmet>
       <StyledRoot>
         <Logo
@@ -63,17 +64,17 @@ export default function LoginPage() {
 
         {mdUp && (
           <StyledSection>
-            <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>Salut, bon retour</Typography>
+            <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>{t('Salut, bon retour')}</Typography>
             <img src="/assets/illustrations/illustration_login.png" alt="login" />
           </StyledSection>
         )}
 
         <Container maxWidth="sm">
           <StyledContent>
-            <Typography variant="h4" gutterBottom>Se connecter</Typography>          
+            <Typography variant="h4" gutterBottom>{t('Se connecter')}</Typography>          
             <Typography variant="body2" sx={{ mb: 5 }}>
-            Vous n'avez pas de compte ? {''}
-              <Link variant="subtitle2">Commencer</Link>
+            {t('')}Vous n'avez pas de compte ? {''}
+              <Link variant="subtitle2">{t('Commencer')}</Link>
             </Typography>
 
            

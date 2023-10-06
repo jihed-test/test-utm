@@ -1,5 +1,15 @@
+const nodemailer = require('nodemailer');
 const ProfileModel = require('../models/profiles.models')
 const ValidateProfile = require("../validation/Profile")
+// Configure Nodemailer with your SMTP settings
+const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'jihed.jridi@utm.tn',
+      pass: 'feqtplxciztlayms',
+    },
+  });
+
 const AddProfile = async (req ,res)=>{
     const {errors, isValid} = ValidateProfile(req.body)
     try {
@@ -60,9 +70,47 @@ const DeleteProfile = async (req ,res)=>{
      }
 }
 
+const SendMail =  (req, res) => {
+    const mailOptions = {
+      from: 'jihed.jridi@utm.tn',
+      to: 'djeridijihed290@gmail.com',
+      subject: 'Subject of your email test ',
+      text: 'Content of your email',
+    };
+  
+     transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send('Error sending email');
+      } else {
+        console.log('Email sent: ' + info.response);
+        res.send('Email sent successfully');
+      }
+    });
+  }
+  const SendMailPdf =  (req, res) => {
+    const mailOptions = {
+      from: 'jihed.jridi@utm.tn',
+      to: 'djeridijihed290@gmail.com',
+      subject: 'Subject of your email test ',
+      text: 'Content of your email',
+    };
+  
+     transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send('Error sending email');
+      } else {
+        console.log('Email sent: ' + info.response);
+        res.send('Email sent successfully');
+      }
+    });
+  }
 module.exports = {
     AddProfile,
     FindAllProfiles,
     FindSingleProfile,
-    DeleteProfile
+    DeleteProfile,
+    SendMail,
+    SendMailPdf
 }

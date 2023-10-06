@@ -3,6 +3,7 @@ import { Navigate, useRoutes } from 'react-router-dom';
 // layouts
 import DashboardLayout from './layouts/dashboard';
 import SimpleLayout from './layouts/simple';
+
 import EventCommentList from './pages/EventCommentList';
 import UserPage from './pages/UserPage';
 import Admin from './pages/Admin';
@@ -27,6 +28,7 @@ import EventShow from './pages/EventShow';
 import EventComment from './pages/EventComment';
 import StatisticalPage from './pages/StatisticalPage'
 import EventQrCode from './pages/EventQrCode'
+import VerfictionCode from './pages/verificationCode.js';
 
 const EventMaker = React.lazy(() => import('./pages/EventMaker'));
 
@@ -108,7 +110,12 @@ export default function Router() {
         },
       ],
     },
-
+    {
+      path: 'verfictionCode',
+      element: <ForceRedirect user={user}>
+        <VerfictionCode/>
+      </ForceRedirect>,
+    },
     {
       path: 'login',
       element: <ForceRedirect user={user}>

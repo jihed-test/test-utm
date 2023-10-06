@@ -9,13 +9,11 @@ const resources = {
   },
   fr: fr
 };
-
 i18n
-    .use(LanguageDetector)
   .use(initReactI18next) 
   .init({
     resources,
-    lng: "en", 
+    lng: "fr", 
 
     interpolation: {
       escapeValue: false 

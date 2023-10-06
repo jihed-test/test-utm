@@ -5,7 +5,7 @@ import { setAuth } from '../../util/setAuth';
 export const Registration = (form, navigate)=>dispatch=>{
       axios.post('/api/register', form) 
       .then(res=>{
-        navigate('/login')
+        navigate('/VerfictionCode')
         dispatch({
             type: ERRORS,
             payload: {}
@@ -18,7 +18,22 @@ export const Registration = (form, navigate)=>dispatch=>{
           })
       })
 }
-
+export const ValidateCode = (form, navigate)=>dispatch=>{
+    axios.post('/api/ValidateCode', form) 
+    .then(res=>{
+      navigate('/login')
+      dispatch({
+          type: ERRORS,
+          payload: {}
+      })
+    })
+    .catch(err=>{
+        dispatch({
+            type: ERRORS,
+            payload: err.response.data
+        })
+    })
+}
 export const LoginAction = (form, navigate)=>dispatch=>{
     axios.post('/api/login', form) 
     .then(res=>{

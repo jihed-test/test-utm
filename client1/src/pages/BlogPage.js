@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-// @mui
+import { useTranslation } from 'react-i18next';
 import { Grid, Button, Container, Stack, Typography } from '@mui/material';
 // components
 import Iconify from '../components/iconify';
@@ -11,6 +11,7 @@ import Iconify from '../components/iconify';
 // ----------------------------------------------------------------------
 
 export default function BlogPage() {
+  const { t, i18n } = useTranslation();
   return (
     <>
       <Helmet>

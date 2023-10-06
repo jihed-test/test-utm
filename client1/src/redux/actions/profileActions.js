@@ -22,6 +22,32 @@ export const AddProfile = (form, setShow, setMessage)=>dispatch=>{
           })
       });
 }
+export const SendPdf = (id,file, setShow, setMessage)=>dispatch=>{
+    let formData = new FormData();
+    formData.append("file", file);
+    axios
+      .post(`/api/send-email-pdf${id}`, file,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+        }})
+      .then(res => {
+        setShow(true)
+        setMessage("User Send Pdf with success")
+        dispatch({
+            type: ERRORS,
+            payload: {}
+        })
+        setTimeout(() => {
+            setShow(false)
+        }, 4000);
+      })
+      .catch(err => {
+          dispatch({
+              type: ERRORS,
+              payload: err.response.data
+          })
+      });
+}
 
 export const GetProfile = ()=>dispatch=>{
     axios

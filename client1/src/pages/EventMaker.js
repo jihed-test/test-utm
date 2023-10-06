@@ -6,6 +6,7 @@ import { AddEventList } from "../redux/actions/eventListActions";
 import "jodit";
 import "jodit/build/jodit.min.css";
 import JoditEditor from "jodit-react";
+import { useTranslation } from 'react-i18next';
 const copyStringToClipboard = function (str) {
   var el = document.createElement("textarea");
   el.value = str;
@@ -148,6 +149,7 @@ const initialContent = `<p>TRY COPY CONTENT FROM A WORD AND PASTE HERE.</p>`
 
 
 export default function EventListPage() {
+  const { t, i18n } = useTranslation();
   const [form, setForm] = useState({})
   const dispatch = useDispatch()
   const errors = useSelector(state => state.errors)
@@ -181,8 +183,8 @@ export default function EventListPage() {
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <Inputs name="title" label="titre de l'événement" value={form && form.title ? form.title : ""} onChangeHandler={onChangeHandler} errors={errors.title} />
-        <Date name="date" label="date de l'événement" value={form.date} onChangeHandler={onChangeHandlerDate} errors={errors.date} />
+        <Inputs name="title" label={t("titre de l'événement")} value={form && form.title ? form.title : ""} onChangeHandler={onChangeHandler} errors={errors.title} />
+        <Date name="date" label={t("date de l'événement")} value={form.date} onChangeHandler={onChangeHandlerDate} errors={errors.date} />
         <div className="App" style={{ maxWidth: editorConfig.width, margin: "0 auto" }}>
           <JoditEditor
             name="description"
@@ -192,12 +194,12 @@ export default function EventListPage() {
           />
 
           <div>
-          Contenu de l'événement :
+          {t("Contenu de l'événement :")}
             <span dangerouslySetInnerHTML={{ __html: form.description||initialContent }} />
           </div>
           <div className="d-flex justify-content-between">
             <button type="submit" className="btn btn-outline-primary">
-              Update <i className="fa-solid fa-floppy-disk"></i>
+            {t('Update')} <i className="fa-solid fa-floppy-disk"></i>
             </button>
           </div>
         </div>
