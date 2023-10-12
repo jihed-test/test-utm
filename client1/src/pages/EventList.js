@@ -10,7 +10,7 @@ function Admin() {
   const dispatch  = useDispatch()
   useEffect(()=>{async function fetchData(){
     await dispatch(GetEventLists())
-    console.log(events)
+   
   }; fetchData()},[])
   const objClean= events.events.filter((item) => {
     // Create a new Date object for the given date
@@ -22,8 +22,7 @@ if (givenDate < currentDate) {
  return item;
 }} 
  ); 
- console.log("objClean")
- console.log(objClean)
+ 
  
   return (
     <div className="container p-4 mt-4">

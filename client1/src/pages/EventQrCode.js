@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect,useLayoutEffect, useState,useRef } from "react";
 import Inputs from "../components/Inputs";
 import Date from "../components/date"
 import Button from '@mui/material/Button';
@@ -7,25 +7,39 @@ import { AddEventUser,GetEventUser } from "src/redux/actions/eventUserActions";
 import { useTranslation } from 'react-i18next';
 import { jsPDF } from "jspdf";
 import { useDispatch, useSelector } from 'react-redux';
+import isEmpty from "../util/isEmpty";
+import { GetEventLists } from '../redux/actions/eventListActions'
 export default function EventListPage() {
+  useLayoutEffect(()=>{async function fetchData(){
+    await dispatch(GetEventLists())
+  }; fetchData()},[])
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const certificateTemplateRef = useRef(null);
-  const events = useSelector(state => state.events.events)
+  const events = useSelector(state =>{return state.events.events } )
   const Datacomment = useSelector(state => {return state.eventUser.eventUser||{}})
   const user = useSelector(state => {return state.auth.user||{}})
   const [message, setMessage] = useState("")
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false) 
+  const [result, setReselt] = useState()
+
   const [event, setEvent] = useState(() => {
     // getting stored value
     const saved = localStorage.getItem("event");
     const initialValue = JSON.parse(saved);
     return initialValue || "";
   });
+  
   useEffect(() => { 
     dispatch(GetEventUser(event.title))
 }, [])
-const result = events.filter((test) => test.title == event.title);
+
+  const result1 =events.filter((test) => test.title == event.title);
+  console.log("events")
+console.log(events)
+console.log("result")
+console.log(result1)
+
 
 
 
@@ -91,10 +105,14 @@ doc.save('Test.pdf');
            <br/> <p>{event.date||""}</p></div>
            </div>
            <div className="shadow-lg p-3 mb-5 bg-body rounded" style={{backgroundColor: "white"}}>
-            <span  dangerouslySetInnerHTML={{ __html: result[0].description||"" }} /> 
+           {!isEmpty(result1) ? (<>
+           <span  dangerouslySetInnerHTML={{ __html: result1[0].description }} /> 
+           </>): (<></>)}
+           </div>
             </div>
-            </div>
+            
             <QRCode id="qrcode" ref={certificateTemplateRef} size={250} value={JSON.stringify(Datacomment)} />
+            
             </div>
             <Button variant="outlined" onClick={handleOpen1}>pdf</Button>
 

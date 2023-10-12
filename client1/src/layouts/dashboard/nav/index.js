@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect ,useState} from 'react';
 import { useLocation } from 'react-router-dom';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
@@ -13,8 +13,7 @@ import useResponsive from '../../../hooks/useResponsive';
 import Logo from '../../../components/logo';
 import Scrollbar from '../../../components/scrollbar';
 import NavSection from '../../../components/nav-section';
-//
-import navConfig from './config';
+import {navConfig1,navConfig2,navConfig3} from './config';
 
 // ----------------------------------------------------------------------
 
@@ -34,8 +33,24 @@ Nav.propTypes = {
   openNav: PropTypes.bool,
   onCloseNav: PropTypes.func,
 };
-
+var navConfig=navConfig1;
 export default function Nav({ openNav, onCloseNav }) {
+  const auth = useSelector(state => state.auth)
+  const [navConfig, setNavConfig] = useState(navConfig1);
+
+  useEffect(()=>{ function fetchData(){
+     
+    const user = {
+    isConnected: auth.isConnected,
+    role: auth.user.role
+  }
+  if(!user.isConnected){setNavConfig(navConfig1)}
+  else{
+    if(user.role== "ADMIN"){setNavConfig(navConfig2)}
+    else{setNavConfig(navConfig3)}
+  }
+}; fetchData()},[])
+
   const events = useSelector(state => state.auth.user||{})
   const eventsUser = (events.nom+" "+events.prenom)||"";
   const eventsmail = events.email||"";

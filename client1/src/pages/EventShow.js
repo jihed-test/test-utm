@@ -1,22 +1,24 @@
-import React, { useEffect, useState ,useRef } from "react";
+import React, { useEffect,useLayoutEffect, useState ,useRef } from "react";
 import Inputs from "../components/Inputs";
 import Date from "../components/date"
 import Button from '@mui/material/Button';
+import isEmpty from "../util/isEmpty";
 import QRCode from 'qrcode.react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux'
 import { AddEventUser,GetEventUser } from "src/redux/actions/eventUserActions";
-import { GetEventLists } from "src/redux/actions/eventListActions";
 import { jsPDF } from "jspdf";
-
+import { GetEventLists } from '../redux/actions/eventListActions'
 export default function EventListPage() {
-  const { t, i18n } = useTranslation();
   const dispatch = useDispatch()
-  useEffect(() => {async function fetchData (){
+  useLayoutEffect(()=>{async function fetchData(){
     await dispatch(GetEventLists())
+  }; fetchData()},[])
+  const { t, i18n } = useTranslation();
+  const events = useSelector(state =>{return state.events.events } )
+
    
-  };
-  fetchData()},[])
+  
   const [event, setEvent] = useState(() => {
     // getting stored value
     const saved = localStorage.getItem("event");
@@ -30,13 +32,13 @@ export default function EventListPage() {
   };
   fetchData()},[])
   const Datacomment = useSelector(state => {return state.eventUser.eventUser||{}})
-  const events = useSelector(state => state.events.events)
   const [message, setMessage] = useState("")
   const [show, setShow] = useState(false)
-  const user = useSelector(state => {return state.auth.user||{}})
+  var user = useSelector(state => {return state.auth.user||{}})
   const result = (events.filter((test) => test.title == event.title))||[];
   const handleOpen = () => 
-  {    setEvent({event,user})
+  {    
+    setEvent({event,user})
     dispatch(AddEventUser(event, setShow, setMessage))
     dispatch(GetEventUser(event.title))
     
@@ -82,7 +84,7 @@ export default function EventListPage() {
            <br/> <p>{event.date||""}</p></div>
            </div>
            <div className="shadow-lg p-3 mb-5 bg-body rounded" style={{backgroundColor: "white"}}>
-           {result=={} ? ( <span  dangerouslySetInnerHTML={{ __html: result[0].description||"" }} /> ): (<></>) }
+           {!isEmpty(result) ? (<> <span  dangerouslySetInnerHTML={{ __html: result[0].description||"" }} /> </>): (<></>)}
             </div>
             <Button variant="outlined" onClick={handleOpen}>{t('interested')}</Button>
             </div>

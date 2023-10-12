@@ -38,7 +38,6 @@ export default function LanguagePopover() {
 setIcon(option.icon);
 setLabel(option.label);
 setValeur(option.value);
-console.log(valeur)
 i18n.changeLanguage(option.value);
 console.log(i18n.language)
 

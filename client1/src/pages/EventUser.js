@@ -76,7 +76,7 @@ if (givenDate < currentDate) {
        
        <div className="col-lg-12 col-md-12 mt-4">
            <div className="d-flex">
-            <i className="fa-solid fa-user fs-1 mx-2"></i> <h2>{t('Event list Not Add')}</h2>
+            <i className="fa-solid fa-user fs-1 mx-2"></i> <h2>{t("Liste d'événements non ajoutée")}</h2>
            </div>
            <div className="shadow-lg p-3 mb-5 bg-body rounded" style={{backgroundColor: "white"}}>
             <table className="table table-hover">
@@ -103,7 +103,7 @@ if (givenDate < currentDate) {
 
        <div className="col-lg-12 col-md-12 mt-4">
            <div className="d-flex">
-            <i className="fa-solid fa-user fs-1 mx-2"></i> <h2>Liste d'événements non ajoutés</h2>
+            <i className="fa-solid fa-user fs-1 mx-2"></i> <h2>{t("Liste d'événements non ajoutés")}</h2>
            </div>
            <div className="shadow-lg p-3 mb-5 bg-body rounded" style={{backgroundColor: "white"}}>
             <table className="table table-hover">
@@ -130,7 +130,7 @@ if (givenDate < currentDate) {
 
        <div className="col-lg-12 col-md-12 mt-4">
            <div className="d-flex">
-            <i className="fa-solid fa-user fs-1 mx-2"></i> <h2>Liste des événements commentés :</h2>
+            <i className="fa-solid fa-user fs-1 mx-2"></i> <h2>{t('Liste des événements commentés')} :</h2>
            </div>
            <div className="shadow-lg p-3 mb-5 bg-body rounded" style={{backgroundColor: "white"}}>
             <table className="table table-hover">

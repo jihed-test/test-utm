@@ -1,7 +1,6 @@
 import React from 'react';
 import { CDBBox, CDBBtn, CDBIcon, CDBNavLink } from 'cdbreact';
 import { useTranslation } from 'react-i18next';
-import "../../i18n";
 export default  function Footer1 () {
   const { t, i18n } = useTranslation();
   return (
@@ -41,10 +40,11 @@ export default  function Footer1 () {
 
             <CDBBox>
               <p className="h5 mb-4" style={{ fontWeight: '600' }}>
-              {t("Help")}</p>
+              {t('Aide')}
+              </p>
               <CDBBox flex="column" style={{ cursor: 'pointer', padding: '0' }}>
-                <CDBNavLink href="/">{t("Resources")}</CDBNavLink>
-                <CDBNavLink href="/">{t("About Us")}</CDBNavLink>
+                <CDBNavLink href="/">{t("Ressources")}</CDBNavLink>
+                <CDBNavLink href="/">{t("À propos de nous")}</CDBNavLink>
                 <CDBNavLink href="/">{t("Contact")}</CDBNavLink>
                 <CDBNavLink href="/">{t("Blog")}</CDBNavLink>
               </CDBBox>

@@ -21,7 +21,9 @@
     "Contenu de l'événement :":"Event content :",
     "Événement":"Event",
     "interested":"interested",
-    "Event list Not Add":"Event list Not Added",
+    "Liste d'événements non ajoutée":"Event list Not Added",
+    "Liste d'événements non ajoutés":"List of unadded events",
+    "Liste des événements commentés":"List of commented events",
     "Se connecter":"log in",
     "Salut, bon retour":"Hello, welcome back",
     "Commencer":"start",
@@ -65,15 +67,15 @@
     "titre de l'événement":"event title",
     "date de l'événement":"event date",
     
-    "Resources":"Resources",
-    "About Us":"About Us",
+    "Ressources":"Resources",
+    "À propos de nous":"About Us",
     "Contact":"Contact",
     "Blog":"Blog",
-
+    "jihed":"jihed1",
     "Contacts":"Contacts",
     "Université de Tunis El Manar" :"University of Tunis El Manar",
     "Université de Tunis El Manar : Campus Universitaire Farhat Hached B.P. n° 94 - ROMMANA 1068 Tunis, Tunisie.":"Farhat Hached University Campus B.P. n° 94 - ROMMANA 1068 Tunis, Tunisia.",
-    "Help":"Help",
+    "Aide":"Help",
     "Structures de Recherche":"Research Structures"
 }
 

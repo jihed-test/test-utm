@@ -14,21 +14,19 @@ function Admin() {
   const initialValue = JSON.parse(saved);
   return initialValue || "";
 });
-let newArray = Datacomment.filter(function (el) {
-  return el.comment = "" 
-      
-}
-);
-  useEffect(()=>{
-    const result = Datacomment.filter((word) => word.comment ="");
-    console.log("result")
-    console.log(result)
-  },[])
-  useEffect(()=>{async function fetchData(){
-    console.log(event.title)
+const test= JSON.parse(Datacomment);
+let newArray = test.filter((word) => word.comment ="");
+ 
+    const result = test.filter((word) => {
+      console.log(word)
+    if (word.comment !=="") {
+      return word;
+    }});
+    console.log(test)
+  useEffect(()=>{async function fetchData(){ 
     await dispatch(GetAllEventByTitle(event.title))
   }; fetchData()},[])
- 
+ Datacomment
   return (
     <div className="container ">
     <div >
@@ -49,7 +47,7 @@ let newArray = Datacomment.filter(function (el) {
                 </thead>
                 <tbody>
                   {
-                    Datacomment.map(({_id, comment, title,user,date,createdAt})=>(
+                    result.map(({_id, comment, title,user,date,createdAt})=>(
                        <RowDetails6 key={_id} _id={_id} user={user} title={title} date={date} comment={comment} createdAt={createdAt}  />
                     ))
                   }

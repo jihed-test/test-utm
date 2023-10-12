@@ -9,7 +9,7 @@ const passport = require("passport");
 const { ROLES, inRole } = require("../security/Rolemiddleware");
 const { SendMail,SendMailPdf,AddProfile, FindAllProfiles, FindSingleProfile, DeleteProfile } = require("../controllers/profile.controllers");
 const {AddEventList, FindAllEventList,DeleteEventList} = require("../controllers/eventlist.controllers");
-const {AddEvent,UpdteEvent,FindAllEventUser,FindSingleEventUser,DeleteEventTitle,delaitCommentEvent,DeleteSingleEventUser,FindAllEventByTitle} = require("../controllers/event.controllers");
+const {AddEvent,UpdteEvent,eventtest,FindAllEventUser,FindSingleEventUser,DeleteEventTitle,delaitCommentEvent,DeleteSingleEventUser,FindAllEventByTitle} = require("../controllers/event.controllers");
 /* users routes. */
 router.post("/register", Register);
 router.post("/ValidateCode", ValidateCode);
@@ -72,11 +72,13 @@ passport.authenticate("jwt", { session: false }),
 DeleteSingleEventUser);
 /* Find All Event User */
 router.get("/eventTitle/:title",
-passport.authenticate("jwt", { session: false }),
 FindAllEventByTitle);
 router.post("/event1",
 passport.authenticate("jwt", { session: false }),
 UpdteEvent);
+router.post("/event1",
+passport.authenticate("jwt", { session: false }),
+eventtest);
 router.post("/event2",
 passport.authenticate("jwt", { session: false }),
 delaitCommentEvent);

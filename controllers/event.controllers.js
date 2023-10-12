@@ -54,6 +54,8 @@ const AddEvent = async (req, res) => {
                 .then(async (event) => {
                     if (!event) {
                         req.body.user = req.user.id
+                        req.body.comment = "";
+                        req.body.participation = false ;
                         await EventModel.create(req.body)
                         EventModel.findOne({ user: req.user.id, title: req.body.title })
                             .then((event) => {
@@ -150,11 +152,40 @@ const FindAllEventByTitle = async (req, res) => {
     try {
         console.log(req.params.title)
         const data = await EventModel.find({ title: req.params.title })
+        console.log("data")
         console.log(data)
         res.status(200).json(data)
     } catch (error) {
         res.status(404).json(error.message)
 
+    }
+}
+//eventtest
+const eventtest = async (req, res) => {
+    const { errors, isValid } = ValidateEvent(req.body)
+    try {
+        if (!isValid) {
+            res.status(404).json(errors)
+        } else {
+            EventModel.findOne({ _id: req.body._id })
+                .then(async (event) => {
+                    if (!event) {
+
+
+                        res.status(404).json({ message: "error" })
+                    } else {
+                        await EventModel.findOneAndUpdate(
+                            { _id: event._id },
+                            req.body,
+                            { new: true }
+                        ).then(result => {
+                            res.status(200).json(result)
+                        })
+                    }
+                })
+        }
+    } catch (error) {
+        res.status(404).json(error.message)
     }
 }
 const UpdteEvent = async (req, res) => {
@@ -199,7 +230,7 @@ const delaitCommentEvent = async (req, res) => {
                     if (!event) {
                         res.status(404).json({ message: "error" })
                     } else {
-                        req.body.comment = "";
+                        // req.body.comment = "";
                         await EventModel.findOneAndUpdate(
                             { _id: event._id }, req.body,
                             { new: true }
@@ -221,5 +252,6 @@ module.exports = {
     DeleteSingleEventUser,
     FindAllEventByTitle,
     UpdteEvent,
+    eventtest,
     delaitCommentEvent
 }

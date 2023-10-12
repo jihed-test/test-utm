@@ -22,21 +22,21 @@ const eventsmail = events.email||"";
       label: 'Home',
       icon: 'eva:home-fill',
       test:  ()=>{
-        dispatch(Logout())
+        console.log('Home')
      },
     },
     {
       label: 'Profile',
       icon: 'eva:person-fill',
       test : ()=>{
-        dispatch(Logout())
+        console.log('Profile')
      },
     },
     {
       label: 'Settings',
       icon: 'eva:settings-2-fill',
       test:() =>
-      console.log('test'),
+      console.log('Settings'),
         
       }
   ];
