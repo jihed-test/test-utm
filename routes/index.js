@@ -76,7 +76,7 @@ FindAllEventByTitle);
 router.post("/event1",
 passport.authenticate("jwt", { session: false }),
 UpdteEvent);
-router.post("/event1",
+router.post("/event3",
 passport.authenticate("jwt", { session: false }),
 eventtest);
 router.post("/event2",

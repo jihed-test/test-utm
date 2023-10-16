@@ -86,7 +86,7 @@ export const GetAllEventByTitle = (title)=>dispatch=>{
     axios
       .get(`/api/eventTitle/${title}`)
       .then(res => { console.log("test");
-      const test =res.request.response
+      const test =res.data
       console.log(test);
           dispatch({
               type: SET_EVENT_USERS,

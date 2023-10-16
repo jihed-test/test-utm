@@ -41,9 +41,10 @@ if (givenDate < currentDate) {
   return (
     <div>
       <div>
+     
       <Container  >
         <Row>
-          <Col><div className="p-6 shadow-lg p-3 mb-5 bg-body rounded h-100" style={{ backgroundColor: "white" }} >
+          <Col className={"p-6   mb-5"}><div className="p-6 shadow-lg p-3  mb-5 bg-body rounded h-100" style={{ backgroundColor: "white" }} >
             <FaGraduationCap className="fa fa-graduation-cap"
             speechify-initial-font-family="FontAwesome"
             speechify-initial-font-size="50px"
@@ -53,7 +54,7 @@ if (givenDate < currentDate) {
               data-to={33000}
               data-append="+"
               speechify-initial-font-family='"Open Sans", Arial, sans-serif'
-              speechify-initial-font-size="50px"
+              speechify-initial-font-size="20px"
               style={{
                 fontFamily: '"Open Sans", Arial, sans-serif',
                 fontSize: 50
@@ -72,7 +73,7 @@ if (givenDate < currentDate) {
              {t('Étudiants')} 
             </label>             </div>
 </Col>
-          <Col ><div className="p-6 shadow-lg p-3 mb-5 bg-body rounded h-100" style={{ backgroundColor: "white" }} >
+          <Col className={"p-6   mb-5"}><div className="p-6 shadow-lg   mb-5 bg-body rounded h-100" style={{ backgroundColor: "white" }} >
              <FaFlag className="fa fa-graduation-cap"
             speechify-initial-font-family="FontAwesome"
             speechify-initial-font-size="50px"
@@ -90,7 +91,7 @@ if (givenDate < currentDate) {
             </strong> <br/>
             <label
               speechify-initial-font-family='"Open Sans", Arial, sans-serif'
-              speechify-initial-font-size="20px"
+              speechify-initial-font-size="50px"
               style={{
                 fontFamily: '"Open Sans", Arial, sans-serif',
                 fontSize: 20
@@ -99,7 +100,7 @@ if (givenDate < currentDate) {
              {t('Nationalités')} 
             </label>             </div>
 </Col>
-          <Col ><div className="p-6 shadow-lg p-3 mb-5 bg-body rounded h-100 h-100" style={{ backgroundColor: "white"}} >
+          <Col className={"p-6   mb-5"}><div className="p-6 shadow-lg   mb-5 bg-body rounded h-100 h-100" style={{ backgroundColor: "white"}} >
             <FaUniversity className="fa fa-graduation-cap"
             speechify-initial-font-family="FontAwesome"
             speechify-initial-font-size="50px"
@@ -117,7 +118,7 @@ if (givenDate < currentDate) {
             </strong><br/>
             <label
               speechify-initial-font-family='"Open Sans", Arial, sans-serif'
-              speechify-initial-font-size="20px"
+              speechify-initial-font-size="50px"
               style={{
                 fontFamily: '"Open Sans", Arial, sans-serif',
                 fontSize: 20
@@ -126,7 +127,7 @@ if (givenDate < currentDate) {
              {t('Établissements')} 
             </label>             </div>
 </Col>
-          <Col ><div className="p-6 shadow-lg p-3 mb-5 bg-body rounded h-100" style={{ backgroundColor: "white" }} >
+          <Col className={"p-6   mb-5"}><div className="p-6 shadow-lg   mb-5 bg-body rounded h-100" style={{ backgroundColor: "white" }} >
             <FaFlask className="fa fa-graduation-cap"
             speechify-initial-font-family="FontAwesome"
             speechify-initial-font-size="50px"
@@ -144,7 +145,7 @@ if (givenDate < currentDate) {
             </strong><br/>
             <label
               speechify-initial-font-family='"Open Sans", Arial, sans-serif'
-              speechify-initial-font-size="20px"
+              speechify-initial-font-size="50px"
               style={{
                 fontFamily: '"Open Sans", Arial, sans-serif',
                 fontSize: 20

@@ -14,15 +14,17 @@ function Admin() {
   const initialValue = JSON.parse(saved);
   return initialValue || "";
 });
-const test= JSON.parse(Datacomment);
-let newArray = test.filter((word) => word.comment ="");
+console.log("Datacomment")
+console.log(Datacomment)
+// const test= JSON.parse(Datacomment);
+// const test= Datacomment;
+// let newArray = test.filter((word) => word.comment ="");
  
-    const result = test.filter((word) => {
-      console.log(word)
-    if (word.comment !=="") {
-      return word;
-    }});
-    console.log(test)
+    // const result = test.filter((word) => {
+    //   console.log(word)
+    // if (word.comment !=="") {
+    //   return word;
+    // }});
   useEffect(()=>{async function fetchData(){ 
     await dispatch(GetAllEventByTitle(event.title))
   }; fetchData()},[])
@@ -47,7 +49,7 @@ let newArray = test.filter((word) => word.comment ="");
                 </thead>
                 <tbody>
                   {
-                    result.map(({_id, comment, title,user,date,createdAt})=>(
+                    Datacomment.map(({_id, comment, title,user,date,createdAt})=>(
                        <RowDetails6 key={_id} _id={_id} user={user} title={title} date={date} comment={comment} createdAt={createdAt}  />
                     ))
                   }
