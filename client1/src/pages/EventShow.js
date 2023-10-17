@@ -86,14 +86,14 @@ export default function EventListPage() {
            <div className="shadow-lg p-3 mb-5 bg-body rounded" style={{backgroundColor: "white"}}>
            {!isEmpty(result) ? (<> <span  dangerouslySetInnerHTML={{ __html: result[0].description||"" }} /> </>): (<></>)}
             </div>
-            <Button variant="outlined" onClick={handleOpen}>{t('interested')}</Button>
             </div>
             
 
             {Datacomment.user!=undefined ? (<>
             <QRCode id="qrcode" ref={certificateTemplateRef} size={250} value={JSON.stringify(Datacomment)} />
-            <Button variant="outlined" onClick={handleOpen1}>pdf</Button></>
-            ): (<></>)}
+            <br/><Button variant="outlined" onClick={handleOpen1}>pdf</Button></>
+            ): (<>            <Button variant="outlined" onClick={handleOpen}>{t('interested')}</Button>
+            </>)}
 
             </div>
             </div>

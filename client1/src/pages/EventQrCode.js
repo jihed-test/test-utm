@@ -10,11 +10,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import isEmpty from "../util/isEmpty";
 import { GetEventLists } from '../redux/actions/eventListActions'
 export default function EventListPage() {
+  const dispatch = useDispatch();
   useLayoutEffect(()=>{async function fetchData(){
     await dispatch(GetEventLists())
   }; fetchData()},[])
   const { t, i18n } = useTranslation();
-  const dispatch = useDispatch();
   const certificateTemplateRef = useRef(null);
   const events = useSelector(state =>{return state.events.events } )
   const Datacomment = useSelector(state => {return state.eventUser.eventUser||{}})
@@ -30,9 +30,10 @@ export default function EventListPage() {
     return initialValue || "";
   });
   
-  useEffect(() => { 
-    dispatch(GetEventUser(event.title))
-}, [])
+  useEffect(() => {async function fetchData (){
+    await dispatch(GetEventUser(event.title))
+  };
+  fetchData()},[])
 
   const result1 =events.filter((test) => test.title == event.title);
   console.log("events")

@@ -7,6 +7,8 @@ import "jodit";
 import "jodit/build/jodit.min.css";
 import JoditEditor from "jodit-react";
 import { useTranslation } from 'react-i18next';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const copyStringToClipboard = function (str) {
   var el = document.createElement("textarea");
   el.value = str;
@@ -175,13 +177,23 @@ export default function EventListPage() {
     date: e
   })
   }
-  const onSubmit = (e) => {
+  const notify = () => toast.success(message);
+  const onSubmit = async(e) => {
     e.preventDefault();
-    dispatch(AddEventList(form, setShow, setMessage))
+    await dispatch(AddEventList(form, setShow, setMessage))
+    
   }
+  
+  useEffect(() => {
+   if(message!=="") notify();
+  },[message])
   
   return (
     <div>
+   <ToastContainer />
+       <div className="alert alert-success" role="alert" style={{ display: show ? "block" : "none" }}>
+                    {message}
+                </div>
       <form onSubmit={onSubmit}>
         <Inputs name="title" label={t("titre de l'événement")} value={form && form.title ? form.title : ""} onChangeHandler={onChangeHandler} errors={errors.title} />
         <Date name="date" label={t("date de l'événement")} value={form.date} onChangeHandler={onChangeHandlerDate} errors={errors.date} />

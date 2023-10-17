@@ -84,9 +84,7 @@ export default function EventListPage() {
   };
   return (
     <div className="container p-4 mt-4">
-      <div className="alert alert-success" role="alert" style={{ display: show ? "block" : "none" }}>
-        {message}
-      </div>
+    
       <div >
 
         <div >
@@ -109,7 +107,6 @@ export default function EventListPage() {
               setDeleteModalState={setDeleteModalState}
             />)}
         </div>
-        <p>{data.comment}</p>
       </div>
     </div>
   );

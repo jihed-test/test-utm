@@ -17,7 +17,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ValidateCode } from "../redux/actions/authActions";
 import Classnames from 'classnames'
-
+import "./verificationCode.css";
+const width = window.innerWidth;
+const height = window.innerHeight;
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -60,7 +62,7 @@ export default function VerificationCode() {
   return (
     <div>
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="sm">
         <CssBaseline />
         <Box
           sx={{
@@ -78,7 +80,7 @@ export default function VerificationCode() {
           </Typography>
           <h5>Welcome Back!</h5>
 
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Box component="form" noValidate onSubmit={handleSubmit} >
 
             <p>
               It looks like you're trying to login from a new device.
@@ -100,8 +102,9 @@ export default function VerificationCode() {
                 />
               </Grid>
               <legend>Security Code</legend>
-              <div>
+              <div className="custom-styles">
                 <ReactInputVerificationCode
+               
                   className={Classnames("form-control", { "is-invalid": errors })}
                   onCompleted={onChangeHandler}
                   value={form && form.code ? form.code : ""}
@@ -111,10 +114,7 @@ export default function VerificationCode() {
               </div>
             </fieldset>
             <p><a href='#'>Resend Code</a></p>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+            
             <Button
               type="submit"
               fullWidth

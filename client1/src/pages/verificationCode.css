@@ -1,0 +1,9 @@
+
+
+.custom-styles {
+    display: flex;
+  flex-wrap: nowrap;
+
+    --ReactInputVerificationCode-itemWidth: 1.7rem;
+    --ReactInputVerificationCode-itemHeight: 2.5rem;
+  }
