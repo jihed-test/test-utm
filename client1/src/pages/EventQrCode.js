@@ -115,7 +115,7 @@ doc.save('Test.pdf');
             <QRCode id="qrcode" ref={certificateTemplateRef} size={250} value={JSON.stringify(Datacomment)} />
             
             </div>
-            <Button variant="outlined" onClick={handleOpen1}>pdf</Button>
+            <Button variant="outlined" onClick={handleOpen1}>{t('télécharger invitation')}</Button>
 
             </div>
   );

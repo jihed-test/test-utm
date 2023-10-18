@@ -17,6 +17,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ValidateCode } from "../redux/actions/authActions";
 import Classnames from 'classnames'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./verificationCode.css";
 const width = window.innerWidth;
 const height = window.innerHeight;
@@ -41,6 +43,8 @@ export default function VerificationCode() {
   const [form, setForm] = useState({ "code":"" })
   const dispatch = useDispatch()
   const errors = useSelector(state => state.errors)
+  const [message, setMessage] = useState("")
+
   const navigate = useNavigate()
   const onChangeHandler = (e) => {
     setForm({
@@ -48,6 +52,8 @@ export default function VerificationCode() {
     "code": e
     })
   }
+  const notify = () => toast.error(errors.message);
+
   const handleSubmit =  (e) => {
     e.preventDefault();
    
@@ -59,8 +65,13 @@ export default function VerificationCode() {
       [e.target.name]: e.target.value
     })
   }
+  useEffect(() => {
+    if(errors.message!=="")notify();
+   },[errors])
+   
   return (
     <div>
+      <ToastContainer />
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="sm">
         <CssBaseline />
@@ -131,7 +142,7 @@ export default function VerificationCode() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

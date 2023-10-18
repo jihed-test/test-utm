@@ -37,11 +37,7 @@ const navConfig2 = [
     path: '/dashboard/app',
     icon: icon('ic_analytics'),
   },
-  {
-    title: 'user',
-    path: '/dashboard/user',
-    icon: icon('user-svgrepo-com'),
-  },
+  
   {
     title: 'profile',
     path: '/dashboard/profile',

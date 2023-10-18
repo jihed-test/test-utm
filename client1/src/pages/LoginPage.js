@@ -74,7 +74,7 @@ export default function LoginPage() {
             <Typography variant="h4" gutterBottom>{t('Se connecter')}</Typography>          
             <Typography variant="body2" sx={{ mb: 5 }}>
             {t('')}Vous n'avez pas de compte ? {''}
-              <Link variant="subtitle2">{t('Commencer')}</Link>
+              <Link href="/signup" variant="subtitle2">{t('Commencer')}</Link>
             </Typography>
 
            

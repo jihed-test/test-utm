@@ -72,7 +72,7 @@ console.log(form)
     return (
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
         {'Copyright © '}
-        <Link color="inherit" href="https://mui.com/">
+        <Link color="inherit" href="#">
         {t('')}Your Website
         </Link>{' '}
         {new Date().getFullYear()}
@@ -184,7 +184,7 @@ console.log(form)
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                 {t('Vous avez déjà un compte? Se connecter')}
                 </Link>
               </Grid>

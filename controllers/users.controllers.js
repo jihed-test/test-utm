@@ -450,9 +450,12 @@ const ValidateCode = async (req, res) => {
             errors.message = "not found user"
             res.status(404).json(errors)
           } else {
-            if (validator.equals(req.body.code, user.code)) {
-              console.log(user.code)
-              console.log(req.body.code)
+            var text = user.code.toString();
+                var text1 = req.body.code;
+                console.log(text)
+                console.log(text1)
+            if (!validator.equals(text, text1)) {
+                
               errors.message = "incorrect code"
               res.status(404).json(errors)
             }

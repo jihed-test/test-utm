@@ -36,10 +36,10 @@ export default function EventListPage() {
   const [show, setShow] = useState(false)
   var user = useSelector(state => {return state.auth.user||{}})
   const result = (events.filter((test) => test.title == event.title))||[];
-  const handleOpen = () => 
+  const handleOpen = async() => 
   {    
     setEvent({event,user})
-    dispatch(AddEventUser(event, setShow, setMessage))
+    await dispatch(AddEventUser(event, setShow, setMessage))
     dispatch(GetEventUser(event.title))
     
   };
@@ -80,18 +80,19 @@ export default function EventListPage() {
        
        <div >
            <div className="d-flex">
-            <div><h2>{t('Event')}: {event.title||""}</h2>
+            <div><h2>{t('Event')}: {event.title||Datacomment.title}</h2>
            <br/> <p>{event.date||""}</p></div>
            </div>
-           <div className="shadow-lg p-3 mb-5 bg-body rounded" style={{backgroundColor: "white"}}>
-           {!isEmpty(result) ? (<> <span  dangerouslySetInnerHTML={{ __html: result[0].description||"" }} /> </>): (<></>)}
-            </div>
+           {!isEmpty(result) ? (<> {!isEmpty(result[0].description) ? (<> 
+            <div className="shadow-lg p-3 mb-5 bg-body rounded" style={{backgroundColor: "white"}}>
+         <span  dangerouslySetInnerHTML={{ __html: result[0].description }} /> </div> </>): (<></>)} </>): (<></>)}
+           
             </div>
             
 
             {Datacomment.user!=undefined ? (<>
             <QRCode id="qrcode" ref={certificateTemplateRef} size={250} value={JSON.stringify(Datacomment)} />
-            <br/><Button variant="outlined" onClick={handleOpen1}>pdf</Button></>
+            <br/><Button variant="outlined" onClick={handleOpen1}>{t('télécharger invitation')}</Button></>
             ): (<>            <Button variant="outlined" onClick={handleOpen}>{t('interested')}</Button>
             </>)}
 
