@@ -39,9 +39,52 @@ const AddProfile = async (req ,res)=>{
          res.status(404).json(error.message)
     }
 }
-
+const getPagination = (page, size) => {
+    const limit = size ? +size : 3;
+    const offset = page ? page * limit : 0;
+  
+    return { limit, offset };
+  };
+  
 const FindAllProfiles = async (req ,res)=>{
+    var dataUser=[];
+    const { page, size } = req.query;
+    const { limit, offset } = getPagination(page, size);
     try {
+
+       const data =  await ProfileModel.paginate({}, { offset, limit })
+       .then(async(data) => {
+        console.log("data")
+        console.log(data)
+        for (let index = 0; index < data.docs.length; index++) {
+            const user = data.docs[index];
+            const data1 =  await ProfileModel.findOne({_id: user._id}).populate('user', ["nom","prenom", "email", "role"])
+            dataUser.push(data1);
+        }
+        // console.log("dataUser")
+        // console.log(dataUser)
+         res.send({
+           totalItems: data.totalDocs,
+           profiles: dataUser,
+           totalPages: data.totalPages,
+           currentPage: data.page - 1,
+         });
+       })
+       .catch((err) => {
+        res.status(404).send({
+          message:
+            err.message || "Some error occurred while retrieving tutorials.",
+        });
+      });
+}catch (error) {
+    res.status(404).json(error.message)
+}
+}
+const FindAllProfiles1 = async (req ,res)=>{
+    const { page, size } = req.query;
+    const { limit, offset } = getPagination(page, size);
+    try {
+
        const data =  await ProfileModel.find().populate('user', ["nom","prenom", "email", "role"])
        res.status(200).json(data)
 
@@ -79,7 +122,7 @@ const SendMail =  (req, res) => {
       subject: 'Subject of your email test ',
       text: 'Content of your email',
       html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-      <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+      <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
       
       <head>
           <meta charset="UTF-8">
@@ -105,44 +148,89 @@ const SendMail =  (req, res) => {
       </head>
       
       <body>
-          <div class="es-wrapper-color">
+          <div dir="ltr" class="es-wrapper-color">
               <!--[if gte mso 9]>
-            <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
-              <v:fill type="tile" color="#333333"></v:fill>
-            </v:background>
-          <![endif]-->
+                  <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+                      <v:fill type="tile" color="#ffffff"></v:fill>
+                  </v:background>
+              <![endif]-->
               <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0">
                   <tbody>
                       <tr>
                           <td class="esd-email-paddings" valign="top">
-                              <table cellpadding="0" cellspacing="0" class="es-header esd-header-popover" align="center">
+                              <table cellpadding="0" cellspacing="0" class="esd-header-popover es-header" align="center">
                                   <tbody>
                                       <tr>
-                                          <td class="esd-stripe" align="center">
-                                              <table class="es-header-body" width="600" cellspacing="0" cellpadding="0" bgcolor="#2b2c2c" align="center">
+                                          <td class="esd-stripe" align="center" style="background-color: #ffffff;" bgcolor="#ffffff">
+                                              <table class="es-header-body" align="center" cellpadding="0" cellspacing="0" width="600" style="background-color: transparent;">
                                                   <tbody>
                                                       <tr>
-                                                          <td class="esd-structure es-p20t es-p20r es-p20l" align="left">
-                                                              <table width="100%" cellspacing="0" cellpadding="0">
+                                                          <td class="esd-structure es-p20 es-m-p0b" align="left">
+                                                              <table cellpadding="0" cellspacing="0" width="100%">
                                                                   <tbody>
                                                                       <tr>
-                                                                          <td class="esd-container-frame" width="560" valign="top" align="center">
-                                                                              <table width="100%" cellspacing="0" cellpadding="0">
+                                                                          <td width="560" class="es-m-p0r esd-container-frame" valign="top" align="center">
+                                                                              <table cellpadding="0" cellspacing="0" width="100%">
                                                                                   <tbody>
                                                                                       <tr>
-                                                                                          <td class="esd-block-text" align="left">
-                                                                                              <h2>Verification Code</h2>
-                                                                                          </td>
+                                                                                          <td align="center" class="esd-block-image" style="font-size: 0px;"><a target="_blank" href="https://viewstripo.email"><img src="https://fbeioii.stripocdn.email/content/guids/CABINET_e785d3457dcd1a99a4d93d1201b618d7a74e77f67f0bd3dcba2b7f1558a3e718/images/pngegg_1.png" alt="Logo" style="display: block;" width="100" title="Logo"></a></td>
                                                                                       </tr>
+                                                                                  </tbody>
+                                                                              </table>
+                                                                          </td>
+                                                                      </tr>
+                                                                  </tbody>
+                                                              </table>
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td class="esd-structure es-p20r es-p20l es-m-p20b" align="left">
+                                                              <table cellpadding="0" cellspacing="0" width="100%">
+                                                                  <tbody>
+                                                                      <tr>
+                                                                          <td width="560" class="esd-container-frame" align="center" valign="top">
+                                                                              <table cellpadding="0" cellspacing="0" width="100%">
+                                                                                  <tbody>
                                                                                       <tr>
-                                                                                          <td class="esd-block-spacer es-p5t" align="left">
-                                                                                              <table width="5%" height="100%" cellspacing="0" cellpadding="0" border="0">
+                                                                                          <td align="center" class="esd-block-spacer es-p10t es-p10b" style="font-size:0">
+                                                                                              <table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0">
                                                                                                   <tbody>
                                                                                                       <tr>
-                                                                                                          <td style="border-bottom: 3px solid #de4a4a; background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; height: 1px; width: 100%; margin: 0px;"></td>
+                                                                                                          <td style="border-bottom: 1px solid #6ec9f1; background: none; height: 1px; width: 100%; margin: 0px;"></td>
                                                                                                       </tr>
                                                                                                   </tbody>
                                                                                               </table>
+                                                                                          </td>
+                                                                                      </tr>
+                                                                                      <tr>
+                                                                                          <td align="left" class="esd-block-text es-p20t es-p5b es-m-txt-l">
+                                                                                              <h2 style="line-height: 120%;">Good day!</h2>
+                                                                                          </td>
+                                                                                      </tr>
+                                                                                      <tr>
+                                                                                          <td align="left" class="esd-block-text es-p10t es-p10b es-m-txt-l">
+                                                                                              <p>Dear [Recipient's Name],</p>
+                                                                                              <p>I hope this email finds you well. I am writing to inform you that I have taken the necessary steps to assist you in recovering your account password. In order to facilitate the process, I have sent the password to your designated email address. This will enable you to access your account and regain control over it.</p>
+                                                                                              <p>Email : [Recipient's Name]</p>
+                                                                                              <p>Password: [Recipient's Name]</p>
+                                                                                              <p>I sincerely apologize for any inconvenience this may have caused you and I understand the importance of maintaining the security of your account. Therefore, I have implemented strict measures to ensure the confidentiality and integrity of your personal information throughout this recovery procedure.</p>
+                                                                                              <p>Should you encounter any difficulties or require further assistance, please do not hesitate to contact our dedicated support team. They will be more than happy to provide you with the necessary guidance and support to ensure a seamless account recovery experience.</p>
+                                                                                              <p>We value your trust and remain committed to providing you with the highest level of service.</p>
+                                                                                              <p>Thank you for choosing our services and for giving us the opportunity to assist you. We look forward to serving you in the future.</p>
+                                                                                              <p>Warm regards,</p>
+                                                                                          </td>
+                                                                                      </tr>
+                                                                                      <tr>
+                                                                                          <td align="center" class="esd-block-button es-p10t es-p10b es-m-p40b es-m-txt-c">
+                                                                                              <!--[if mso]><a href="http://vps-4eab7525.vps.ovh.net/dashboard/app" target="_blank" hidden>
+          <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" esdevVmlButton href="http://vps-4eab7525.vps.ovh.net/dashboard/app" 
+                      style="height:50px; v-text-anchor:middle; width:180px" arcsize="50%" stroke="f"  fillcolor="#6ec9f1">
+              <w:anchorlock></w:anchorlock>
+              <center style='color:#ffffff; font-family:arial, "helvetica neue", helvetica, sans-serif; font-size:18px; font-weight:400; line-height:18px;  mso-text-raise:1px'>Learn more</center>
+          </v:roundrect></a>
+      <![endif]-->
+                                                                                              <!--[if !mso]><!-- --><span class="msohide es-button-border-1614696552493 es-button-border" style="background: #6ec9f1;"><a href="http://vps-4eab7525.vps.ovh.net/dashboard/app" class="es-button es-button-1614696552480" target="_blank" style="background: #6ec9f1; mso-border-alt: 10px solid  #6ec9f1; padding: 10px 20px 10px 10px"><img src="https://fbeioii.stripocdn.email/content/guids/CABINET_3b670d78779801705eef224a1b9fbd70/images/65391614697135358.png" alt="icon" width="30" class="esd-icon-left" style="margin-right:10px;" align="absmiddle">Learn more</a></span>
+                                                                                              <!--<![endif]-->
                                                                                           </td>
                                                                                       </tr>
                                                                                   </tbody>
@@ -162,21 +250,20 @@ const SendMail =  (req, res) => {
                               <table class="es-content" cellspacing="0" cellpadding="0" align="center">
                                   <tbody>
                                       <tr>
-                                          <td class="esd-stripe esd-checked" align="center">
-                                              <table class="es-content-body hide-bg" style="background-image:url(https://fbeioii.stripocdn.email/content/guids/CABINET_8cd399d86e34002dbfc2366e203785dd/images/74101540392347022.png);background-color: #212121; background-position: center top; background-repeat: no-repeat;" width="600" cellspacing="0" cellpadding="0" bgcolor="#212121" align="center">
+                                          <td class="esd-stripe" align="center">
+                                              <table class="es-content-body" style="background-color: transparent;" width="600" cellspacing="0" cellpadding="0" align="center">
                                                   <tbody>
                                                       <tr>
-                                                          <td class="esd-structure es-p20t es-p10b es-p25r es-p25l" align="left">
-                                                              <!--[if mso]><table width="550" cellpadding="0" 
-                              cellspacing="0"><tr><td width="394" valign="top"><![endif]-->
-                                                              <table class="es-left" cellspacing="0" cellpadding="0" align="left">
+                                                          <td class="esd-structure es-p20" align="left">
+                                                              <!--[if mso]><table width="560" cellpadding="0" cellspacing="0"><tr><td width="218" valign="top"><![endif]-->
+                                                              <table cellpadding="0" cellspacing="0" align="left" class="es-left">
                                                                   <tbody>
                                                                       <tr>
-                                                                          <td class="esd-container-frame" width="394" align="left">
-                                                                              <table style="background-position: center top;" width="100%" cellspacing="0" cellpadding="0">
+                                                                          <td width="218" class="esd-container-frame es-m-p20b" align="center" valign="top">
+                                                                              <table cellpadding="0" cellspacing="0" width="100%" style="border-right:1px solid #6ec9f1;">
                                                                                   <tbody>
                                                                                       <tr>
-                                                                                          <td class="esd-block-image" align="left" style="font-size: 0px;"><a target="_blank" href="https://viewstripo.email"><img class="adapt-img" src="https://fbeioii.stripocdn.email/content/guids/CABINET_07bf7c6e64d897719470f45365cca3e8437ef2d10af53c848d427dd2b83a362f/images/title2.png" alt="Our employees" title="Our employees" style="display: block;" width="104"></a></td>
+                                                                                          <td align="center" class="esd-block-image es-p20t es-p20b es-p20r es-m-p0t es-m-p10l es-m-txt-c" style="font-size: 0px;"><a target="_blank" href="https://viewstripo.email"><img src="https://fbeioii.stripocdn.email/content/guids/CABINET_e785d3457dcd1a99a4d93d1201b618d7a74e77f67f0bd3dcba2b7f1558a3e718/images/pngegg_1.png" alt="Jada Nelson" style="display: block;" width="197" title="Jada Nelson"></a></td>
                                                                                       </tr>
                                                                                   </tbody>
                                                                               </table>
@@ -184,46 +271,54 @@ const SendMail =  (req, res) => {
                                                                       </tr>
                                                                   </tbody>
                                                               </table>
-                                                              <!--[if mso]></td><td width="20"></td><td width="136" valign="top"><![endif]-->
-                                                              <table class="es-right" cellspacing="0" cellpadding="0" align="right">
+                                                              <!--[if mso]></td><td width="20"></td><td width="322" valign="top"><![endif]-->
+                                                              <table cellpadding="0" cellspacing="0" class="es-right" align="right">
                                                                   <tbody>
                                                                       <tr>
-                                                                          <td class="esd-container-frame" width="136" align="left">
-                                                                              <table style="background-position: center top;" width="100%" cellspacing="0" cellpadding="0">
+                                                                          <td width="322" align="left" class="esd-container-frame">
+                                                                              <table cellpadding="0" cellspacing="0" width="100%">
                                                                                   <tbody>
-                                                                                      <tr class="es-mobile-hidden">
-                                                                                          <td class="esd-block-text es-p10b" align="left">
-                                                                                              <h1 style="color: #dbdbdb; font-size: 40px;"><br></h1>
+                                                                                      <tr>
+                                                                                          <td align="left" class="esd-block-image es-p5t es-p5b es-m-p0" style="font-size: 0px;"><a target="_blank" href="https://viewstripo.email"><img class="adapt-img" src="https://fbeioii.stripocdn.email/content/guids/CABINET_3b670d78779801705eef224a1b9fbd70/images/42581614947368048.png" alt style="display: block;" width="262"></a></td>
+                                                                                      </tr>
+                                                                                      <tr>
+                                                                                          <td align="left" class="esd-block-text es-m-txt-l">
+                                                                                              <h3><strong>JridiJihed</strong>&nbsp;&nbsp;Dev</h3>
                                                                                           </td>
                                                                                       </tr>
                                                                                       <tr>
-                                                                                          <td class="esd-block-text es-m-txt-c es-p20t" align="left">
-                                                                                              <h1 class="fadeInItem" style="color: #dbdbdb; font-size: 19px;">Verification Code</h1>
+                                                                                          <td class="esd-block-menu" esd-tmp-menu-size="width|20" esd-tmp-menu-padding="10|5">
+                                                                                              <table cellpadding="0" cellspacing="0" width="100%" class="es-menu">
+                                                                                                  <tbody>
+                                                                                                      <tr class="links-images-left">
+                                                                                                          <td align="left" valign="top" width="50%" class="es-p10t es-p10b" style="padding-top: 10px; padding-bottom: 5px;"><a target="_blank" href="tel:+134578990"><img src="https://fbeioii.stripocdn.email/content/guids/CABINET_3b670d78779801705eef224a1b9fbd70/images/95711614763048218.png" alt="+216 55 228 226" title="+216 55 228 226" align="absmiddle" class="es-p5r" width="20">+216 55 228 226</a></td>
+                                                                                                          <td align="left" valign="top" width="50%" class="es-p10t es-p10b" style="padding-top: 10px; padding-bottom: 5px;"><a target="_blank" href="tel:+134578990"><img src="https://fbeioii.stripocdn.email/content/guids/CABINET_3b670d78779801705eef224a1b9fbd70/images/69541614947093393.png" alt="+216 228 226" title="+216 228 226" align="absmiddle" class="es-p5r" width="20">+216 228 226</a></td>
+                                                                                                      </tr>
+                                                                                                  </tbody>
+                                                                                              </table>
                                                                                           </td>
                                                                                       </tr>
-                                                                                  </tbody>
-                                                                              </table>
-                                                                          </td>
-                                                                      </tr>
-                                                                  </tbody>
-                                                              </table>
-                                                              <!--[if mso]></td></tr></table><![endif]-->
-                                                          </td>
-                                                      </tr>
-                                                      <tr>
-                                                          <td class="esd-structure es-p25r es-p25l" style="background-position: center top;" align="left">
-                                                              <table width="100%" cellspacing="0" cellpadding="0">
-                                                                  <tbody>
-                                                                      <tr>
-                                                                          <td class="esd-container-frame" width="550" valign="top" align="center">
-                                                                              <table width="100%" cellspacing="0" cellpadding="0">
-                                                                                  <tbody>
                                                                                       <tr>
-                                                                                          <td class="esd-block-spacer es-p5t es-p5b" align="center" style="font-size:0">
-                                                                                              <table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
+                                                                                          <td class="esd-block-menu" esd-tmp-menu-size="width|20" esd-tmp-menu-padding="5|10">
+                                                                                              <table cellpadding="0" cellspacing="0" width="100%" class="es-menu">
+                                                                                                  <tbody>
+                                                                                                      <tr class="links-images-left">
+                                                                                                          <td align="left" valign="top" width="50%" class="es-p10t es-p10b" style="padding-top: 5px; padding-bottom: 10px;"><a target="_blank" href="mailto:jada@insurance.agency"><img src="https://fbeioii.stripocdn.email/content/guids/CABINET_3b670d78779801705eef224a1b9fbd70/images/58641614773761370.png" alt="Mail me" title="Mail me" align="absmiddle" class="es-p5r" width="20">Mail me</a></td>
+                                                                                                          <td align="left" valign="top" width="50%" class="es-p10t es-p10b" style="padding-top: 5px; padding-bottom: 10px;"><a target="_blank" href="https://viewstripo.email"><img src="https://fbeioii.stripocdn.email/content/guids/CABINET_3b670d78779801705eef224a1b9fbd70/images/60191614948456055.png" alt="ROMMANA 1068 Tunis, Tunisie" title="ROMMANA 1068 Tunis, Tunisie" align="absmiddle" class="es-p5r" width="20">ROMMANA 1068 Tunis, Tunisie</a></td>
+                                                                                                      </tr>
+                                                                                                  </tbody>
+                                                                                              </table>
+                                                                                          </td>
+                                                                                      </tr>
+                                                                                      <tr>
+                                                                                          <td align="left" class="esd-block-social es-p5t es-p5b" style="font-size:0">
+                                                                                              <table cellpadding="0" cellspacing="0" class="es-table-not-adapt es-social">
                                                                                                   <tbody>
                                                                                                       <tr>
-                                                                                                          <td style="border-bottom: 3px solid #de4a4a; background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; height: 1px; width: 100%; margin: 0px;"></td>
+                                                                                                          <td align="center" valign="top" class="es-p20r"><a target="_blank" href="https://viewstripo.email"><img title="Facebook" src="https://fbeioii.stripocdn.email/content/assets/img/social-icons/logo-black/facebook-logo-black.png" alt="Fb" width="24" height="24"></a></td>
+                                                                                                          <td align="center" valign="top" esd-tmp-icon-type="slack" class="es-p20r"><a target="_blank" href="https://viewstripo.email"><img title="Slack" src="https://fbeioii.stripocdn.email/content/assets/img/messenger-icons/logo-black/slack-logo-black.png" alt="Slack" width="24" height="24"></a></td>
+                                                                                                          <td align="center" valign="top" esd-tmp-icon-type="telegram" class="es-p20r"><a target="_blank" href="https://viewstripo.email"><img title="Telegram" src="https://fbeioii.stripocdn.email/content/assets/img/messenger-icons/logo-black/telegram-logo-black.png" alt="Telegram" width="24" height="24"></a></td>
+                                                                                                          <td align="center" valign="top" esd-tmp-icon-type="skype"><a target="_blank" href="skype:"><img title="Skype" src="https://fbeioii.stripocdn.email/content/assets/img/messenger-icons/logo-black/skype-logo-black.png" alt="Skype" width="24" height="24"></a></td>
                                                                                                       </tr>
                                                                                                   </tbody>
                                                                                               </table>
@@ -235,107 +330,7 @@ const SendMail =  (req, res) => {
                                                                       </tr>
                                                                   </tbody>
                                                               </table>
-                                                          </td>
-                                                      </tr>
-                                                      <tr>
-                                                          <td class="esd-structure es-p25t es-p30r es-p30l" style="background-position: center top;" align="left">
-                                                              <!--[if mso]><table width="540" cellpadding="0" 
-                              cellspacing="0"><tr><td width="240" valign="top"><![endif]-->
-                                                              <table class="es-left" cellspacing="0" cellpadding="0" align="left">
-                                                                  <tbody>
-                                                                      <tr>
-                                                                          <td class="es-m-p20b esd-container-frame" width="240" align="left">
-                                                                              <table width="100%" cellspacing="0" cellpadding="0">
-                                                                                  <tbody>
-                                                                                      <tr>
-                                                                                          <td class="esd-block-text es-p5t es-p10b es-p15r es-p15l" align="right">
-                                                                                              <h2 style="line-height: 120%;">Verification Code</h2>
-                                                                                              <h2 style="line-height: 120%; color: #de4a4a;"><strong>HGASNC18</strong></h2>
-                                                                                          </td>
-                                                                                      </tr>
-                                                                                  </tbody>
-                                                                              </table>
-                                                                          </td>
-                                                                      </tr>
-                                                                  </tbody>
-                                                              </table>
-                                                              <!--[if mso]></td><td width="20"></td><td width="280" valign="top"><![endif]-->
-                                                              <table class="es-right" cellspacing="0" cellpadding="0" align="right">
-                                                                  <tbody>
-                                                                      <tr>
-                                                                          <td class="esd-container-frame" width="280" align="left">
-                                                                              <table style="border-color: #dbdbdb; border-style: dashed; border-width: 2px; background-position: center top;" width="100%" cellspacing="0" cellpadding="0">
-                                                                                  <tbody>
-                                                                                      <tr>
-                                                                                          <td class="esd-block-timer es-p15t es-p20b es-p10r es-p10l" align="center" esdev-config="h1"><a target="_blank"><img alt class="adapt-img" src="https://cdt-timer.stripocdn.email/api/v1/images/-RFdHpVfrIxg802QakVAYqMFOe9K6O-9O8hVOMqiC-I?time=1696854135931" width="256"></a></td>
-                                                                                      </tr>
-                                                                                  </tbody>
-                                                                              </table>
-                                                                          </td>
-                                                                      </tr>
-                                                                  </tbody>
-                                                              </table>
                                                               <!--[if mso]></td></tr></table><![endif]-->
-                                                          </td>
-                                                      </tr>
-                                                      <tr>
-                                                          <td class="esd-structure es-p20t es-p20b es-p40r es-p40l" align="left">
-                                                              <table width="100%" cellspacing="0" cellpadding="0">
-                                                                  <tbody>
-                                                                      <tr>
-                                                                          <td class="es-m-p20b esd-container-frame" width="520" align="left">
-                                                                              <table width="100%" cellspacing="0" cellpadding="0">
-                                                                                  <tbody>
-                                                                                      <tr>
-                                                                                          <td class="esd-block-text es-m-txt-c es-p15t" align="center">
-                                                                                              <h2 style="color: #dbdbdb;">Dear:</h2>
-                                                                                          </td>
-                                                                                      </tr>
-                                                                                      <tr>
-                                                                                          <td class="esd-block-text es-m-txt-c es-p15t" align="center">
-                                                                                              <p style="color: #dbdbdb; font-size: 16px;"><br></p>
-                                                                                              <p style="color: #dbdbdb; font-size: 16px;">Please enter the code 515071 to verify your account.</p>
-                                                                                              <p style="color: #dbdbdb; font-size: 16px;"><b>Note:</b><br>After your account is verified, you can modify your password, login email address, and cell phone number. If you did not request a verification code, please change your account password to prevent unauthorized access to your account.</p>
-                                                                                          </td>
-                                                                                      </tr>
-                                                                                      <tr>
-                                                                                          <td class="esd-block-button es-p20t es-p10r es-p10l" align="center">
-                                                                                              <!--[if mso]><a href="https://viewstripo.email" target="_blank" hidden>
-        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" esdevVmlButton href="https://viewstripo.email" 
-                      style="height:39px; v-text-anchor:middle; width:184px" arcsize="0%" strokecolor="#de4a4a" strokeweight="2px" fillcolor="#212121">
-          <w:anchorlock></w:anchorlock>
-          <center style='color:#de4a4a; font-family:arial, "helvetica neue", helvetica, "sans-serif"; font-size:14px; font-weight:400; line-height:14px;  mso-text-raise:1px'>VERIFY NOW</center>
-        </v:roundrect></a>
-      <![endif]-->
-                                                                                              <!--[if !mso]><!-- --><span class="msohide es-button-border" style="background: #212121 none repeat scroll 0% 0%;"><a href="https://viewstripo.email" class="es-button" target="_blank" style="background: #212121 none repeat scroll 0% 0%; mso-border-alt: 10px solid  #212121">VERIFY NOW</a></span>
-                                                                                              <!--<![endif]-->
-                                                                                          </td>
-                                                                                      </tr>
-                                                                                  </tbody>
-                                                                              </table>
-                                                                          </td>
-                                                                      </tr>
-                                                                  </tbody>
-                                                              </table>
-                                                          </td>
-                                                      </tr>
-                                                      <tr>
-                                                          <td class="esd-structure es-p10b es-p20r es-p20l" style="background-position: center top;" align="left">
-                                                              <table width="100%" cellspacing="0" cellpadding="0">
-                                                                  <tbody>
-                                                                      <tr>
-                                                                          <td class="esd-container-frame" width="560" valign="top" align="center">
-                                                                              <table style="background-position: center top;" width="100%" cellspacing="0" cellpadding="0">
-                                                                                  <tbody>
-                                                                                      <tr>
-                                                                                          <td class="esd-block-image" align="center" style="font-size:0"><a target="_blank"><img class="adapt-img" src="https://fbeioii.stripocdn.email/content/guids/CABINET_8cd399d86e34002dbfc2366e203785dd/images/14991540389761621.png" alt style="display: block;" width="560"></a></td>
-                                                                                      </tr>
-                                                                                  </tbody>
-                                                                              </table>
-                                                                          </td>
-                                                                      </tr>
-                                                                  </tbody>
-                                                              </table>
                                                           </td>
                                                       </tr>
                                                   </tbody>
@@ -344,45 +339,23 @@ const SendMail =  (req, res) => {
                                       </tr>
                                   </tbody>
                               </table>
-                              <table cellpadding="0" cellspacing="0" class="es-footer esd-footer-popover" align="center">
+                              <table cellpadding="0" cellspacing="0" class="es-content esd-footer-popover" align="center">
                                   <tbody>
                                       <tr>
                                           <td class="esd-stripe" align="center">
-                                              <table class="es-footer-body" style="background-color: #212121;" width="600" cellspacing="0" cellpadding="0" bgcolor="#212121" align="center">
+                                              <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" width="600">
                                                   <tbody>
                                                       <tr>
-                                                          <td class="esd-structure es-p20t es-p30b es-p20r es-p20l" align="left">
-                                                              <table width="100%" cellspacing="0" cellpadding="0">
+                                                          <td class="esd-structure es-p20" align="left">
+                                                              <table cellpadding="0" cellspacing="0" width="100%">
                                                                   <tbody>
                                                                       <tr>
-                                                                          <td class="esd-container-frame" width="560" valign="top" align="center">
-                                                                              <table width="100%" cellspacing="0" cellpadding="0">
+                                                                          <td width="560" class="esd-container-frame" align="center" valign="top">
+                                                                              <table cellpadding="0" cellspacing="0" width="100%">
                                                                                   <tbody>
                                                                                       <tr>
-                                                                                          <td class="esd-block-social es-p15b" align="center" style="font-size:0">
-                                                                                              <table class="es-table-not-adapt es-social" cellspacing="0" cellpadding="0">
-                                                                                                  <tbody>
-                                                                                                      <tr>
-                                                                                                          <td class="es-p20r" valign="top" align="center"><a target="_blank" href="https://"><img title="Facebook" src="https://fbeioii.stripocdn.email/content/assets/img/social-icons/logo-gray/facebook-logo-gray.png" alt="Fb" width="32"></a></td>
-                                                                                                          <td class="es-p20r" valign="top" align="center"><a target="_blank" href="https://"><img title="Twitter" src="https://fbeioii.stripocdn.email/content/assets/img/social-icons/logo-gray/twitter-logo-gray.png" alt="Tw" width="32"></a></td>
-                                                                                                          <td class="es-p20r" valign="top" align="center"><a target="_blank" href="https://"><img title="Instagram" src="https://fbeioii.stripocdn.email/content/assets/img/social-icons/logo-gray/instagram-logo-gray.png" alt="Inst" width="32"></a></td>
-                                                                                                          <td class="es-p10r" valign="top" align="center"><a target="_blank" href="https://"><img title="Youtube" src="https://fbeioii.stripocdn.email/content/assets/img/social-icons/logo-gray/youtube-logo-gray.png" alt="Yt" width="32"></a></td>
-                                                                                                      </tr>
-                                                                                                  </tbody>
-                                                                                              </table>
-                                                                                          </td>
-                                                                                      </tr>
-                                                                                      <tr>
-                                                                                          <td align="center" class="esd-block-text">
-                                                                                              <p style="font-size: 13px;">Campus Universitaire Farhat Hached B.P. n° 94 - ROMMANA 1068 Tunis, Tunisie.<br></p>
-                                                                                              <p style="font-size: 13px;">&nbsp;CCP : 17001000000321990621. Tél : (216) 71 873 366<br></p>
-                                                                                              <p style="font-size: 13px;"><a target="_blank" style="font-size: 13px;" class="unsubscribe" href>Unsubscribe</a> | <a target="_blank" style="font-size: 13px;" href="https://viewstripo.email">Update Preferences</a></p>
-                                                                                          </td>
-                                                                                      </tr>
-                                                                                      <tr>
-                                                                                          <td class="esd-block-text es-p5t" align="center">
-                                                                                              <p style="font-size: 13px;">You are receiving this email because you have visited our site or asked us about regular newsletter. Make sure our messages get to your Inbox (and not your bulk or junk folders).</p>
-                                                                                              <p style="font-size: 13px;">Vectors graphics designed by Reevateam.</p>
+                                                                                          <td align="center" class="esd-block-text es-infoblock">
+                                                                                              <p style="line-height: 150%;">You are receiving this email because you have visited our site or asked us about the regular newsletter. Make sure our messages get to your Inbox (and not your bulk or junk folders).<br><a target="_blank" style="line-height: 150%;" href="https://viewstripo.email">Privacy police</a> | <a target="_blank" style="line-height: 150%;">Unsubscribe</a></p>
                                                                                           </td>
                                                                                       </tr>
                                                                                   </tbody>
@@ -405,9 +378,7 @@ const SendMail =  (req, res) => {
               </table>
           </div>
       </body>
-      
-      </html>
-      `,
+      </html>`,
     }; 
   
      transporter.sendMail(mailOptions, (error, info) => {

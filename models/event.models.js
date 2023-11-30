@@ -8,7 +8,15 @@ const EventProfile = new Schema(
     comment: "string",
     date: "Date",
     createdAt:"Date",
-    participation : "Boolean"
+    participation : "Boolean",
+    j1:"Boolean",
+    j2:"Boolean",
+    j3:"Boolean",
+    j4:"Boolean",
+    j5:"Boolean",
+    j6:"Boolean",
+    j7:"Boolean"
+    
   },
   {
     timestamps: true,

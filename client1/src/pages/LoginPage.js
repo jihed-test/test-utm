@@ -13,8 +13,7 @@ import Logo from '../components/logo';
 import Iconify from '../components/iconify';
 // sections
 import { LoginForm } from '../sections/auth/login';
-
-// ----------------------------------------------------------------------
+import Modal from 'react-bootstrap/Modal';// ----------------------------------------------------------------------
 
 const StyledRoot = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
@@ -45,11 +44,22 @@ const StyledContent = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function LoginPage() {
+  const navigate = useNavigate()
+
   const { t, i18n } = useTranslation();
   const mdUp = useResponsive('up', 'md');
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleClose1 = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handlePath = () => navigate('/updatepassword');
+
+ 
   return (
     <>
+   
+  
       <Helmet>
         <title> {t('Se connecter')}  </title>
       </Helmet>
@@ -78,10 +88,30 @@ export default function LoginPage() {
             </Typography>
 
            
+            {/* <>
+     
 
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Forgot password?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </> */}
             
 
             <LoginForm />
+            <Button   sx={{ px: 5, mt: 3, mb: 5 }} onClick={handlePath}>
+            Forgot password?
+      </Button>
           </StyledContent>
         </Container>
       </StyledRoot>

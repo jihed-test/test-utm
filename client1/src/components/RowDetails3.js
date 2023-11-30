@@ -11,7 +11,7 @@ function RowDetails({_id, title, date , description }) {
     }
     const handleOpen = () => 
     { localStorage.setItem("event", JSON.stringify({ title, date, description }));
-      navigate("/dashboard/EventQrCode")};
+      console.log(JSON.stringify({ title, date, description }))}
   
   return (
     <tr>

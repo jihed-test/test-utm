@@ -3,6 +3,7 @@ const {
   Register,
   Login,
   ValidateCode,
+  UpdatePassword,
 } = require("../controllers/users.controllers");
 var router = express.Router();
 const passport = require("passport");
@@ -12,6 +13,7 @@ const {AddEventList, FindAllEventList,DeleteEventList} = require("../controllers
 const {AddEvent,UpdteEvent,eventtest,FindAllEventUser,FindSingleEventUser,DeleteEventTitle,delaitCommentEvent,DeleteSingleEventUser,FindAllEventByTitle} = require("../controllers/event.controllers");
 /* users routes. */
 router.post("/register", Register);
+router.post("/updatepassword", UpdatePassword);
 router.post("/ValidateCode", ValidateCode);
 router.post("/login", Login);
 
@@ -21,8 +23,7 @@ router.post("/profiles",
   AddProfile);
 /* get all profiles */
 router.get("/profiles",
-  passport.authenticate("jwt", { session: false }),
-  inRole(ROLES.ADMIN),
+
   FindAllProfiles);
 /* get one profiles */
 router.get("/profile",
@@ -77,7 +78,6 @@ router.post("/event1",
 passport.authenticate("jwt", { session: false }),
 UpdteEvent);
 router.post("/event3",
-passport.authenticate("jwt", { session: false }),
 eventtest);
 router.post("/event2",
 passport.authenticate("jwt", { session: false }),

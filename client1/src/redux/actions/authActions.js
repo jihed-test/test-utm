@@ -18,6 +18,22 @@ export const Registration = (form, navigate)=>dispatch=>{
           })
       })
 }
+export const UpdatePassword = (form, navigate)=>dispatch=>{
+    axios.post('/api/updatepassword', form) 
+    .then(res=>{
+      navigate('/VerfictionCode')
+      dispatch({
+          type: ERRORS,
+          payload: {}
+      })
+    })
+    .catch(err=>{
+        dispatch({
+            type: ERRORS,
+            payload: err.response.data
+        })
+    })
+}
 export const ValidateCode = (form, navigate)=>dispatch=>{
     axios.post('/api/ValidateCode', form) 
     .then(res=>{

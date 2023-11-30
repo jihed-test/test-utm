@@ -10,6 +10,8 @@ import RowDetails7 from '../components/RowDetails7'
 import { GetEventLists } from '../redux/actions/eventListActions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next';
+import MaterialTable1 from '../components/pagination/material-table';
+
 const options = {
   url: "https://dev.to/collegewap/web-scraping-react-application-using-nodejs-bga",
 
@@ -155,7 +157,14 @@ if (givenDate < currentDate) {
           </Col>
         </Row>
       </Container></div>
-
+      <div className="col-lg-12 col-md-12 mt-4">
+           <div className="d-flex">
+            <i className="fa-solid fa-user fs-1 mx-2"></i> <h2>{t('Liste des événements')}</h2>
+           </div>
+           <div className="shadow-lg p-3 mb-5 bg-body rounded" style={{backgroundColor: "white"}}>
+                  <MaterialTable1 data={events.events}/>
+                  </div>
+                  </div>
       <div className="col-lg-12 col-md-12 mt-4">
            <div className="d-flex">
             <i className="fa-solid fa-user fs-1 mx-2"></i> <h2>{t('Liste des événements')}</h2>

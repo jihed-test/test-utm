@@ -67,9 +67,9 @@ export const GetProfile = ()=>dispatch=>{
       });
 }
 
-export const GetProfiles = ()=>dispatch=>{
+export const GetProfiles = (page,size)=>dispatch=>{
     axios
-      .get("/api/profiles")
+      .get(`/api/profiles?page=${page}&size=${size}`)
       .then(res => {
           dispatch({
               type: SET_PROFILES,

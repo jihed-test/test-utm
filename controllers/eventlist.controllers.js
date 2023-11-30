@@ -17,6 +17,14 @@ const AddEventList = async (req, res) => {
             res.status(200).json(result)
           })
         } else {
+          req.body.participation = 0;
+          req.body.j1 = 0;
+          req.body.j2 = 0;
+          req.body.j3 = 0;
+          req.body.j4 = 0;
+          req.body.j5 = 0;
+          req.body.j6 = 0;
+          req.body.j7 = 0;
           await EventlistModels.create(req.body)
                 res.status(200).json({ message: "success" })
         }
@@ -34,6 +42,10 @@ const AddEventList = async (req, res) => {
       res.status(404).json(error.message)
     }
   }
+
+
+
+
   const DeleteEventList = async (req ,res)=>{
     try {
         const data =  await EventlistModels.findOneAndRemove({_id: req.params.id})

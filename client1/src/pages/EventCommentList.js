@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import RowDetails6 from '../components/RowDetails6'
 import { GetAllEventByTitle } from "src/redux/actions/eventUserActions";
 import { useTranslation } from 'react-i18next';
+import MaterialTable5 from '../components/pagination/material-table5';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMessage } from '@fortawesome/free-solid-svg-icons'
+
 function Admin() {
   const { t, i18n } = useTranslation();
   const Datacomment = useSelector(state => state.eventUser.eventsUser)
@@ -34,31 +38,18 @@ console.log(Datacomment)
     <div >
        
        <div >
+       <div className="col-lg-12 col-md-12 mt-4">
            <div className="d-flex">
-            <i className="fa-solid fa-user fs-1 mx-2"></i> <h2>{t('Liste des commentaires')}</h2>
+           <FontAwesomeIcon icon={faMessage} className=" fs-1 mx-2"></FontAwesomeIcon> 
+             <h2>{t('Liste des commentaires')}</h2>
            </div>
            <div className="shadow-lg p-3 mb-5 bg-body rounded" style={{backgroundColor: "white"}}>
-            <table className="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">{t('comment')}</th>
-                    <th scope="col">{t('date')}</th>
-                    <th scope="col">{t('actions')} </th>
-
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    Datacomment.map(({_id, comment, title,user,date,createdAt})=>(
-                       <RowDetails6 key={_id} _id={_id} user={user} title={title} date={date} comment={comment} createdAt={createdAt}  />
-                    ))
-                  }
-                  
-                </tbody>
-              </table>
-        </div>
-       </div>
-   </div>
+                  <MaterialTable5 data={Datacomment}/>
+                  </div>
+                  </div>
+          
+                  </div>
+                  </div>
 </div>
 
 )

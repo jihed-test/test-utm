@@ -29,7 +29,7 @@ import EventComment from './pages/EventComment';
 import StatisticalPage from './pages/StatisticalPage'
 import EventQrCode from './pages/EventQrCode'
 import VerfictionCode from './pages/verificationCode.js';
-
+import  UpdatePassword  from './pages/UpdatePassword';
 const EventMaker = React.lazy(() => import('./pages/EventMaker'));
 
 // ----------------------------------------------------------------------
@@ -126,6 +126,12 @@ export default function Router() {
       path: 'signup',
       element: <ForceRedirect user={user}>
         <SignUpPage />
+      </ForceRedirect>,
+    },
+    {
+      path: 'updatepassword',
+      element: <ForceRedirect user={user}>
+        <UpdatePassword />
       </ForceRedirect>,
     },
     {

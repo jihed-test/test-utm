@@ -72,7 +72,7 @@ export default function EspaceStructuresDeRecherches() {
                             style={{ backgroundColor: "white" }}
                         >
                             <form onSubmit={onSubmit}>
-                             
+                                <Image />
                                 <div className="row">
                                     <div className="col">
                                         <Inputs name="tel" label={t('Telephone')} value={form && form.tel ? form.tel : ""} type="text" onChangeHandler={onChangeHandler} errors={errors.tel} />

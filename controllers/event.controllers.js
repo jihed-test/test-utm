@@ -1,4 +1,5 @@
 const EventModel = require('../models/event.models')
+const EventlistModels = require("../models/eventlist.models");
 const ValidateEvent = require("../validation/Event")
 const UserModel = require("../models/users.models");
 var fs = require('fs');
@@ -56,7 +57,23 @@ const AddEvent = async (req, res) => {
                         req.body.user = req.user.id
                         req.body.comment = "";
                         req.body.participation = false ;
+                        req.body.j1 = false ;
+                        req.body.j2 = false ;
+                        req.body.j3 = false ;
+                        req.body.j4 = false ;
+                        req.body.j5 = false ;
+                        req.body.j6 = false ;
+                        req.body.j7 = false ;
                         await EventModel.create(req.body)
+                        EventlistModels.findOne({ title: req.body.title })
+                        .then(async(eventList) => {
+                            eventList.participation=eventList.participation+1;
+                            await EventlistModels.findOneAndUpdate(
+                                { _id: eventList._id},
+                                eventList,
+                                { new: true }
+                            )  
+                        })
                         EventModel.findOne({ user: req.user.id, title: req.body.title })
                             .then((event) => {
                                 event = {
@@ -331,12 +348,25 @@ const DeleteEventTitle = async (req, res) => {
 }
 const DeleteSingleEventUser = async (req, res) => {
     try {
+        EventModel.findOne({ _id: req.params.id })
+        .then(async(event) => {
+       await EventlistModels.findOne({ title: event.title })
+        .then(async(eventList) => {
+            eventList.participation=eventList.participation-1;
+            await EventlistModels.findOneAndUpdate(
+                { _id: eventList._id},
+                eventList,
+                { new: true }
+            )  
+        })})
+
         const data = await EventModel.findOneAndRemove({ _id: req.params.id })
         res.status(200).json({ message: "deleted" })
 
     } catch (error) {
         res.status(404).json(error.message)
     }
+   
 }
 const FindSingleEventUser = async (req, res) => {
     try {
@@ -379,8 +409,6 @@ const eventtest = async (req, res) => {
             EventModel.findOne({ _id: req.body._id })
                 .then(async (event) => {
                     if (!event) {
-
-
                         res.status(404).json({ message: "error" })
                     } else {
                         await EventModel.findOneAndUpdate(
@@ -388,8 +416,80 @@ const eventtest = async (req, res) => {
                             req.body,
                             { new: true }
                         ).then(result => {
+                            if(req.body.change=="j1")
+                            {EventlistModels.findOne({ title: req.body.title })
+                            .then(async(eventList) => {
+                                eventList.j1=eventList.j1+1;
+                                await EventlistModels.findOneAndUpdate(
+                                    { _id: eventList._id},
+                                    eventList,
+                                    { new: true }
+                                )  
+                            })}
+                            if (req.body.change=="j2")
+                            {EventlistModels.findOne({ title: req.body.title })
+                            .then(async(eventList) => {
+                                eventList.j2=eventList.j2+1;
+                                await EventlistModels.findOneAndUpdate(
+                                    { _id: eventList._id},
+                                    eventList,
+                                    { new: true }
+                                )  
+                            })}
+                            if (req.body.change=="j3")
+                            {EventlistModels.findOne({ title: req.body.title })
+                            .then(async(eventList) => {
+                                eventList.j3=eventList.j3+1;
+                                await EventlistModels.findOneAndUpdate(
+                                    { _id: eventList._id},
+                                    eventList,
+                                    { new: true }
+                                )  
+                            })}
+                            if (req.body.change=="j4")
+                            {EventlistModels.findOne({ title: req.body.title })
+                            .then(async(eventList) => {
+                                eventList.j4=eventList.j4+1;
+                                await EventlistModels.findOneAndUpdate(
+                                    { _id: eventList._id},
+                                    eventList,
+                                    { new: true }
+                                )  
+                            })}
+                            if (req.body.change=="j5")
+                            {EventlistModels.findOne({ title: req.body.title })
+                            .then(async(eventList) => {
+                                eventList.j5=eventList.j5+1;
+                                await EventlistModels.findOneAndUpdate(
+                                    { _id: eventList._id},
+                                    eventList,
+                                    { new: true }
+                                )  
+                            })}
+                            if (req.body.change=="j6")
+                            {EventlistModels.findOne({ title: req.body.title })
+                            .then(async(eventList) => {
+                                eventList.j6=eventList.j6+1;
+                                await EventlistModels.findOneAndUpdate(
+                                    { _id: eventList._id},
+                                    eventList,
+                                    { new: true }
+                                )  
+                            })}
+                            if (req.body.change=="j7")
+                            {EventlistModels.findOne({ title: req.body.title })
+                            .then(async(eventList) => {
+                                eventList.j7=eventList.j7+1;
+                                await EventlistModels.findOneAndUpdate(
+                                    { _id: eventList._id},
+                                    eventList,
+                                    { new: true }
+                                )  
+                            })}
+
                             res.status(200).json(result)
-                        })
+                            
+                    })
                     }
                 })
         }

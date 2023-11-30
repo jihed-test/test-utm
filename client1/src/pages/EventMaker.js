@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Inputs from "../components/Inputs";
 import Date from "../components/date"
+import Slider from "../components/sliderjs"
 import { useDispatch, useSelector } from 'react-redux'
 import { AddEventList } from "../redux/actions/eventListActions";
 import "jodit";
@@ -177,6 +178,13 @@ export default function EventListPage() {
     date: e
   })
   }
+  const onChangeHandlerDataSlide = (e) => {
+    console.log(e.target.value)
+    setForm({
+      ...form,
+      numbreDays: e.target.value
+    })
+  }
   const notify = () => toast.success(message);
   const onSubmit = async(e) => {
     e.preventDefault();
@@ -197,6 +205,7 @@ export default function EventListPage() {
       <form onSubmit={onSubmit}>
         <Inputs name="title" label={t("titre de l'événement")} value={form && form.title ? form.title : ""} onChangeHandler={onChangeHandler} errors={errors.title} />
         <Date name="date" label={t("date de l'événement")} value={form.date} onChangeHandler={onChangeHandlerDate} errors={errors.date} />
+        <Slider onChangeHandler={onChangeHandlerDataSlide} />
         <div className="App" style={{ maxWidth: editorConfig.width, margin: "0 auto" }}>
           <JoditEditor
             name="description"
