@@ -6,6 +6,7 @@ var fs = require('fs');
 const { jsPDF } = require("jspdf");
 const nodemailer = require('nodemailer');
 // Configure Nodemailer with your SMTP settings
+var QRCode = require('qrcode')
 
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -14,7 +15,7 @@ const transporter = nodemailer.createTransport({
         pass: 'feqtplxciztlayms',
     },
 });
-const pdfMaker = (event,user) => {
+const pdfMaker = (event,user,eventuser) => {
     // var doc = new jsPDF({
     //   orientation: 'landscape',
     //   unit: 'px',
@@ -39,8 +40,11 @@ const pdfMaker = (event,user) => {
         keywords: 'generated, javascript, web 2.0, ajax',
         creator: 'MEEE'
     });
-    doc.save('./File/Test.pdf');
-    return doc;
+    QRCode.toDataURL(JSON.stringify(eventuser), function (err, url) {
+        doc.addImage(url, 'png', 60, 150, 90, 90)
+        doc.save('./File/Test.pdf');
+        return doc;
+      })    
 
 }
 const AddEvent = async (req, res) => {
@@ -84,7 +88,7 @@ const AddEvent = async (req, res) => {
                                 console.log(event)
                                 // *****************************
                                 UserModel.findOne({ _id: event.user }).then((user) => {
-                                var doc = pdfMaker(event,user);
+                                var doc = pdfMaker(event,user,event);
                                 
                                 const mailOptions = {
                                     from: 'jihed.jridi@utm.tn',

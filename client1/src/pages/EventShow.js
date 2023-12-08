@@ -90,7 +90,7 @@ export default function EventListPage() {
             </div>
             
 
-            {Datacomment.user!=undefined ? (<>
+            {Datacomment.user!==undefined ? (<>
             <QRCode id="qrcode" ref={certificateTemplateRef} size={250} value={JSON.stringify(Datacomment)} />
             <br/><Button variant="outlined" onClick={handleOpen1}>{t('télécharger invitation')}</Button></>
             ): (<>            <Button variant="outlined" onClick={handleOpen}>{t('interested')}</Button>
